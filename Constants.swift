@@ -36,5 +36,16 @@ struct Constants {
         static let sessionID = "id"
     }
     
+    struct ParseApiKeys {
+        static let AppId = "QrX47CA9cyuGewLdsL7o5Eb8iug6Em8ye0dnAbIr"
+        static let RestApiKey = "QuWThTdiRmTux3YaDseUSEpUKo7aBYM737yKd4gY"
+    }
+    
+    struct ParseApiConstants {
+        static let ApiScheme = "https"
+        static let ApiHost = "parse.udacity.com"
+        static let ApiPath = "/parse/classes/StudentLocation"
+    }
+    
     
 }

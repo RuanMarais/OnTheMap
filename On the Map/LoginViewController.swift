@@ -66,7 +66,6 @@ class LoginViewController: UIViewController {
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         present(controller, animated: true, completion: nil)
     }
-    
 }
 
 extension LoginViewController {
