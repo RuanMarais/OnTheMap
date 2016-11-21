@@ -12,7 +12,6 @@ import UIKit
 // Mark: CONSTANTS 
 struct Constants {
     
-
     struct UIValues {
         static let loginColorTop = UIColor(colorLiteralRed: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0).cgColor
         static let loginColorBottom = UIColor(colorLiteralRed: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0).cgColor
@@ -47,5 +46,12 @@ struct Constants {
         static let ApiPath = "/parse/classes/StudentLocation"
     }
     
+    struct ParseApiQueryKeys {
+        static let limit = "limit"
+    }
+    
+    struct ParseApiQueryValues {
+        static let limitNumber = 100
+    }
     
 }

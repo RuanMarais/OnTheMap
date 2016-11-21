@@ -7,15 +7,18 @@
 //
 
 import Foundation
+import UIKit
 
 class ParseClient: NSObject {
     
     var session = URLSession.shared
+    var appDelegate: AppDelegate!
     
     // MARK: class initialiser
     
     override init() {
         super.init()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
@@ -63,17 +66,17 @@ class ParseClient: NSObject {
         return task
     }
     
-    func taskForPOSTMethod(method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    func taskForPOSTMethod(method: String?, parameters: [String:AnyObject],completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // parameters for URL
         var parameters = parameters
         
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
-        request.httpMethod = "POST"
-        request.addValue("application/json", forHTTPHeaderField: "Accept")
-        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpBody = jsonBody.data(using: String.Encoding.utf8)
+        //print(ParseURLFromParameters(parameters: parameters, withPathExtension: method))
+
+        request.addValue("\(Constants.ParseApiKeys.AppId)", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("\(Constants.ParseApiKeys.RestApiKey)", forHTTPHeaderField: "X-Parse-REST-API-Key")
         
         // making request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
@@ -119,7 +122,7 @@ class ParseClient: NSObject {
         var components = URLComponents()
         components.scheme = Constants.ParseApiConstants.ApiScheme
         components.host = Constants.ParseApiConstants.ApiHost
-        components.path = Constants.UdacityApiConstants.ApiPath + (withPathExtension ?? "")
+        components.path = Constants.ParseApiConstants.ApiPath + (withPathExtension ?? "")
         components.queryItems = [URLQueryItem]()
         
         for (key, value) in parameters {

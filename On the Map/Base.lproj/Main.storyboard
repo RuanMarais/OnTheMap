@@ -118,7 +118,7 @@
         <!--List-->
         <scene sceneID="t0w-LH-d6U">
             <objects>
-                <viewController id="PNe-bU-1dt" sceneMemberID="viewController">
+                <viewController id="PNe-bU-1dt" customClass="StudentLocationTableViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="YUX-Sr-SQg"/>
                         <viewControllerLayoutGuide type="bottom" id="hP9-5B-QjO"/>
@@ -136,6 +136,33 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AKo-72-scZ">
                                 <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleAspectFit" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="BasicCellLocationPin" textLabel="nvE-q2-VKF" imageView="ps4-86-WbM" style="IBUITableViewCellStyleDefault" id="S3B-Se-DcI">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="S3B-Se-DcI" id="aLb-Ql-1LN">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="nvE-q2-VKF">
+                                                    <rect key="frame" x="62" y="0.0" width="298" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="0.0"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="Pin" id="ps4-86-WbM">
+                                                    <rect key="frame" x="15" y="5" width="32" height="32"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </imageView>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="PNe-bU-1dt" id="drl-hI-M36"/>
+                                    <outlet property="delegate" destination="PNe-bU-1dt" id="KP5-UO-tAT"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -150,6 +177,9 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="List" image="List" id="a5X-25-yaJ"/>
+                    <connections>
+                        <outlet property="StudentLocationsTableView" destination="AKo-72-scZ" id="2RW-tw-eu3"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Km5-W1-JFH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -185,9 +215,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="8g0-VW-auf">
-                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
-                            </mapView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFS-fw-9co">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
@@ -200,10 +227,6 @@
                             <constraint firstItem="mFS-fw-9co" firstAttribute="leading" secondItem="rog-Kj-6uf" secondAttribute="leading" id="7f1-AZ-TAh"/>
                             <constraint firstAttribute="trailing" secondItem="mFS-fw-9co" secondAttribute="trailing" id="XnW-NC-SMh"/>
                             <constraint firstItem="mFS-fw-9co" firstAttribute="top" secondItem="rog-Kj-6uf" secondAttribute="top" id="ZfH-Q5-7oN"/>
-                            <constraint firstItem="8g0-VW-auf" firstAttribute="top" secondItem="mFS-fw-9co" secondAttribute="bottom" id="dIW-03-6CT"/>
-                            <constraint firstItem="8g0-VW-auf" firstAttribute="leading" secondItem="rog-Kj-6uf" secondAttribute="leading" id="ddx-M9-Rnn"/>
-                            <constraint firstItem="7eF-md-6LN" firstAttribute="top" secondItem="8g0-VW-auf" secondAttribute="bottom" id="eui-nZ-gCM"/>
-                            <constraint firstAttribute="trailing" secondItem="8g0-VW-auf" secondAttribute="trailing" id="oXe-d5-05Z"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="Map" id="O5U-w9-kkQ"/>
@@ -217,5 +240,6 @@
         <image name="AppIcon" width="256" height="256"/>
         <image name="List" width="32" height="32"/>
         <image name="Map" width="32" height="32"/>
+        <image name="Pin" width="32" height="32"/>
     </resources>
 </document>
