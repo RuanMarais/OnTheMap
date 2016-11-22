@@ -7,24 +7,25 @@
 //
 
 import Foundation
+import UIKit
 
 class UdacityClient: NSObject {
-    
-    var session = URLSession.shared
-    var sessionID: String? = nil
-    var userID: String? = nil
+
+    var appDelegate: AppDelegate!
     
     // MARK: class initialiser 
     
     override init() {
         super.init()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
     }
     
-    func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // Base parameter dictionary
         var parameters = parameters
-        
+        let session = appDelegate.session
         // request from URL
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: method))
         
@@ -62,14 +63,13 @@ class UdacityClient: NSObject {
         //start request
         task.resume()
         
-        return task
     }
 
     func taskForPOSTMethod(method: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // parameters for URL
         var parameters = parameters
-        
+        let session = appDelegate.session
         // url and request
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: method))
         request.httpMethod = "POST"

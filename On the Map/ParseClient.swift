@@ -11,7 +11,6 @@ import UIKit
 
 class ParseClient: NSObject {
     
-    var session = URLSession.shared
     var appDelegate: AppDelegate!
     
     // MARK: class initialiser
@@ -25,7 +24,7 @@ class ParseClient: NSObject {
         
         // Base parameter dictionary
         var parameters = parameters
-        
+        let session = appDelegate.session
         // request from URL
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
         
@@ -70,7 +69,7 @@ class ParseClient: NSObject {
         
         // parameters for URL
         var parameters = parameters
-        
+        let session = appDelegate.session
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
         //print(ParseURLFromParameters(parameters: parameters, withPathExtension: method))

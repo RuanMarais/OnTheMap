@@ -87,47 +87,6 @@ extension ParseClient {
                     latitude = nil
                 }
 
-                /*
- 
-                guard let firstName = student["firstName"] as? String else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - firstName"]))
-                    return
-                }
-                
-                guard let lastName = student["lastName"] as? String else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - lastName"]))
-                    return
-                }
- 
-                guard let objectId = student["objectId"] as? String else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - objectId"]))
-                    return
-                }
-                guard let uniqueKey = student["uniqueKey"] as? String else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - uniqueKey"]))
-                    return
-                }
- 
-                guard let mediaURL = student["mediaURL"] as? String else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - mediaURL"]))
-                    return
-                }
-                
-                guard let mapString = student["mapString"] as? String else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - mapString"]))
-                    return
-                }
-                guard let latitude = student["latitude"] as? Float else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - latitude"]))
-                    return
-                }
-                guard let longitude = student["longitude"] as? Float else {
-                    completionHandlerForParse(false, NSError(domain: "Parse database parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Parse database result - longitude"]))
-                    return
-                }
- 
-                */
-                
                 let studentLocationStruct = StudentLocation(firstName: firstName, objectId: objectId, uniqueKey: uniqueKey, lastName: lastName, mapString: mapString, mediaUrl: mediaUrl, latitude: latitude, longitude: longitude)
                 self.appDelegate.studentLocationDataStructArray.append(studentLocationStruct)
                 }
@@ -135,6 +94,16 @@ extension ParseClient {
             completionHandlerForParse(true, nil)
             
         }
+    }
+    
+    func postPin(replace: Bool, student: StudentLocation, completionHandlerForParse: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+        
+        
+        
+    }
+    
+    func checkPinPresent() {
+        
     }
     
 }

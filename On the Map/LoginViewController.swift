@@ -17,6 +17,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    var appDelegate: AppDelegate!
     
     var keyboardOnScreen = false
     
@@ -26,6 +27,7 @@ class LoginViewController: UIViewController {
         configureUI()
         subscribeKeyboardNotifications()
         self.resignFirstResponderWhenTapped()
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -56,9 +58,21 @@ class LoginViewController: UIViewController {
     }
        
     func completeLogin() {
-        debugLabel.text = ""
+        
+        let student = self.appDelegate.student
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-        present(controller, animated: true, completion: nil)
+        debugLabel.text = ""
+        
+        UdacityClient.sharedInstance().getUdacityStudentDetails(student: student!) {(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.present(controller, animated: true, completion: nil)
+                } else {
+                    self.debugLabel.text = "Login failed"
+                    print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
+                }
+            }
+        }
     }
 }
 

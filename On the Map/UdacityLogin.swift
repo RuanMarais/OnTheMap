@@ -50,11 +50,46 @@ extension UdacityClient {
                 return
             }
             
-            self.sessionID = parsedSessionID
-            self.userID = parsedUserID
+            self.appDelegate.sessionID = parsedSessionID
+            self.appDelegate.userID = parsedUserID
+            self.appDelegate.student = StudentLocation(firstName: nil, objectId: nil, uniqueKey: parsedUserID, lastName: nil, mapString: nil, mediaUrl: nil, latitude: nil, longitude: nil)
+            
             completionHandlerForID(true, nil)
         }
     }
     
-    
+    func getUdacityStudentDetails(student: StudentLocation, completionHandlerForStudentDetails: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+        
+        let userId = student.uniqueKey
+        let parameters = [String: AnyObject]()
+        let userMethod = Constants.UdacityApiMethods.userDetails + userId!
+        
+        taskForGETMethod(method: userMethod, parameters: parameters) {(results, error) in
+        
+            guard (error == nil) else {
+                completionHandlerForStudentDetails(false, error)
+                return
+            }
+            
+            guard let accountDictionary = results?[Constants.UdacityResponseKeys.user] as? [String: AnyObject] else {
+                completionHandlerForStudentDetails(false, NSError(domain: "Udacity response parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Udacity user dictionary result"]))
+                return
+            }
+            
+            guard let firstName = accountDictionary["first_name"] as? String else {
+                completionHandlerForStudentDetails(false, NSError(domain: "Udacity response parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Udacity user - firstname result"]))
+                return
+            }
+            
+            guard let lastName = accountDictionary["last_name"] as? String else {
+                completionHandlerForStudentDetails(false, NSError(domain: "Udacity response parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Udacity user - firstname result"]))
+                return
+            }
+            
+            self.appDelegate.student?.firstName = firstName
+            self.appDelegate.student?.lastName = lastName
+            completionHandlerForStudentDetails(true, nil)
+
+        }
+    }
 }

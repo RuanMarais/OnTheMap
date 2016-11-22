@@ -25,6 +25,7 @@ struct Constants {
     
     struct UdacityApiMethods {
         static let sessionID = "/session"
+        static let userDetails = "/users/"
     }
     
     struct UdacityResponseKeys {
@@ -33,6 +34,7 @@ struct Constants {
         static let isRegistered = "registered"
         static let session = "session"
         static let sessionID = "id"
+        static let user = "user"
     }
     
     struct ParseApiKeys {
