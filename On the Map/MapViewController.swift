@@ -15,9 +15,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var annotations = [MKPointAnnotation]()
     var appDelegate: AppDelegate!
     var studentLocations = [StudentLocation]()
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        alert = UIAlertController(title: Constants.AlertStrings.title, message: Constants.AlertStrings.body, preferredStyle: .alert)
+        let replaceAction = UIAlertAction(title: Constants.AlertStrings.replace, style: .default){(parameter) in
+            self.presentPinInputController(pinReplace: true)
+        }
+        let noReplaceAction = UIAlertAction(title: Constants.AlertStrings.noReplace, style: .default){(parameter) in
+            self.presentPinInputController(pinReplace: false)
+        }
+        alert?.addAction(replaceAction)
+        alert?.addAction(noReplaceAction)
+        
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
             performUIUpdatesOnMain {
@@ -80,6 +92,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
+    @IBAction func newPin(_ sender: Any) {
+        if (ParseClient.sharedInstance().checkPinPresent()) {
+            self.present(alert!, animated: true, completion: nil)
+        } else {
+            self.presentPinInputController(pinReplace: false)
+        }
+    }
+    
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         let reuseId = "pin"
@@ -108,6 +128,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 app.open(url, options: options , completionHandler: nil)
             }
         }
+    }
+    
+    func presentPinInputController(pinReplace: Bool) {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "NewPinInput") as! NewPinInputViewController
+        controller.replace = pinReplace
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

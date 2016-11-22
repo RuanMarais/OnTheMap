@@ -13,17 +13,18 @@ class NewPinInputViewController: UIViewController {
     @IBOutlet weak var pinInputLabel: UILabel!
     @IBOutlet weak var pinInputButton: UIButton!
     @IBOutlet weak var pinInputTextfield: UITextField!
+    var replace: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
     }
 
     @IBAction func showOnMap(_ sender: Any) {
     }
     
     @IBAction func cancelPin(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

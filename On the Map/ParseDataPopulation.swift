@@ -98,11 +98,10 @@ extension ParseClient {
     
     func postPin(replace: Bool, student: StudentLocation, completionHandlerForParse: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
-        
-        
     }
     
-    func checkPinPresent() {
+    func checkPinPresent() -> Bool {
+        return true
         
     }
     

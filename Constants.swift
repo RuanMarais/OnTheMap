@@ -56,4 +56,11 @@ struct Constants {
         static let limitNumber = 1000
     }
     
+    struct AlertStrings {
+        static let title = "Student Pin Placement"
+        static let body = "You have already placed a Pin. Would you like to replace it?"
+        static let replace = "Replace"
+        static let noReplace = "Don't replace"
+    }
+    
 }

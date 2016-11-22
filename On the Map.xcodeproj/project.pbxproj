@@ -16,6 +16,7 @@
 		C420A2581DE3BF7200CABB47 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A2571DE3BF7200CABB47 /* MapViewController.swift */; };
 		C420A25A1DE458E100CABB47 /* NewPinInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A2591DE458E100CABB47 /* NewPinInputViewController.swift */; };
 		C420A25C1DE458F900CABB47 /* NewPinMapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A25B1DE458F900CABB47 /* NewPinMapViewViewController.swift */; };
+		C420A25E1DE4B2C300CABB47 /* MapGeocoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A25D1DE4B2C300CABB47 /* MapGeocoder.swift */; };
 		C44A61291DDF0595008EE4AC /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A61281DDF0595008EE4AC /* UdacityClient.swift */; };
 		C44A612B1DDF0861008EE4AC /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A612A1DDF0861008EE4AC /* ParseClient.swift */; };
 		C490D2A11DD9287800339B54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C490D2A01DD9287800339B54 /* AppDelegate.swift */; };
@@ -37,6 +38,7 @@
 		C420A2571DE3BF7200CABB47 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C420A2591DE458E100CABB47 /* NewPinInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPinInputViewController.swift; sourceTree = "<group>"; };
 		C420A25B1DE458F900CABB47 /* NewPinMapViewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NewPinMapViewViewController.swift; sourceTree = "<group>"; };
+		C420A25D1DE4B2C300CABB47 /* MapGeocoder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapGeocoder.swift; sourceTree = "<group>"; };
 		C44A61281DDF0595008EE4AC /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		C44A612A1DDF0861008EE4AC /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		C490D29D1DD9287800339B54 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +128,7 @@
 				C42062871DDFA48C00C08064 /* GCD.swift */,
 				C490D2BB1DDDB88D00339B54 /* Constants.swift */,
 				C420A24F1DE2FC0A00CABB47 /* StudentLocation.swift */,
+				C420A25D1DE4B2C300CABB47 /* MapGeocoder.swift */,
 				C44A61271DDF057A008EE4AC /* Clients */,
 			);
 			name = Model;
@@ -228,6 +231,7 @@
 				C42062881DDFA48C00C08064 /* GCD.swift in Sources */,
 				C44A612B1DDF0861008EE4AC /* ParseClient.swift in Sources */,
 				C44A61291DDF0595008EE4AC /* UdacityClient.swift in Sources */,
+				C420A25E1DE4B2C300CABB47 /* MapGeocoder.swift in Sources */,
 				C490D2A31DD9287800339B54 /* LoginViewController.swift in Sources */,
 				C420A2581DE3BF7200CABB47 /* MapViewController.swift in Sources */,
 				C490D2A91DD9287800339B54 /* On_the_Map.xcdatamodeld in Sources */,
