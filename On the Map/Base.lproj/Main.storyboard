@@ -31,7 +31,7 @@
                                             <constraint firstAttribute="height" constant="100" id="gXk-KE-dSw"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92q-iS-OFb">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Login to Udacity" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="92q-iS-OFb">
                                         <rect key="frame" x="0.0" y="110" width="343" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="Hls-fK-cCK"/>
@@ -90,6 +90,7 @@
                         <outlet property="debugLabel" destination="2rw-3I-jyB" id="Z6y-DQ-ksq"/>
                         <outlet property="loginButton" destination="aAc-n9-QXM" id="g3a-PW-CoW"/>
                         <outlet property="passwordTextField" destination="ofC-gI-nnM" id="sLM-Q3-lJ0"/>
+                        <outlet property="titleLabel" destination="92q-iS-OFb" id="1ic-HN-N08"/>
                         <outlet property="usernameTextField" destination="za3-RJ-cKS" id="eAe-ei-vEC"/>
                     </connections>
                 </viewController>
@@ -130,7 +131,14 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j3K-Rb-W6B">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="On the Map" id="AXH-9w-uqS"/>
+                                    <navigationItem title="On the Map" id="AXH-9w-uqS">
+                                        <barButtonItem key="leftBarButtonItem" image="Pin" id="1AM-j5-n5B"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="ESv-wZ-HRL">
+                                            <connections>
+                                                <action selector="refreshTable:" destination="PNe-bU-1dt" id="f7e-WZ-nCC"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="AKo-72-scZ">
@@ -203,10 +211,10 @@
             </objects>
             <point key="canvasLocation" x="1920" y="165"/>
         </scene>
-        <!--Map-->
+        <!--Title-->
         <scene sceneID="AwA-e5-jkw">
             <objects>
-                <viewController storyboardIdentifier="MapViewController" id="5NC-vg-VVe" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewController" id="5NC-vg-VVe" customClass="MapViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="LkP-Wo-TGm"/>
                         <viewControllerLayoutGuide type="bottom" id="7eF-md-6LN"/>
@@ -218,18 +226,35 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mFS-fw-9co">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="On the Map" id="LX2-Ju-igb"/>
+                                    <navigationItem title="On the Map" id="LX2-Ju-igb">
+                                        <barButtonItem key="leftBarButtonItem" image="Pin" id="ZaI-nM-tYf"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="0dt-cU-V74"/>
+                                    </navigationItem>
                                 </items>
                             </navigationBar>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="uFc-nn-cxr">
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <connections>
+                                    <outlet property="delegate" destination="5NC-vg-VVe" id="V3G-Po-CQ2"/>
+                                </connections>
+                            </mapView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="uFc-nn-cxr" firstAttribute="top" secondItem="mFS-fw-9co" secondAttribute="bottom" id="59d-UO-2Y2"/>
                             <constraint firstItem="mFS-fw-9co" firstAttribute="leading" secondItem="rog-Kj-6uf" secondAttribute="leading" id="7f1-AZ-TAh"/>
+                            <constraint firstAttribute="trailing" secondItem="uFc-nn-cxr" secondAttribute="trailing" id="8sJ-Wp-teH"/>
+                            <constraint firstItem="uFc-nn-cxr" firstAttribute="leading" secondItem="rog-Kj-6uf" secondAttribute="leading" id="OPa-hc-SWC"/>
                             <constraint firstAttribute="trailing" secondItem="mFS-fw-9co" secondAttribute="trailing" id="XnW-NC-SMh"/>
                             <constraint firstItem="mFS-fw-9co" firstAttribute="top" secondItem="rog-Kj-6uf" secondAttribute="top" id="ZfH-Q5-7oN"/>
+                            <constraint firstItem="7eF-md-6LN" firstAttribute="top" secondItem="uFc-nn-cxr" secondAttribute="bottom" id="hHZ-0x-0Ii"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="Map" id="O5U-w9-kkQ"/>
+                    <navigationItem key="navigationItem" title="Title" id="1In-94-aHu"/>
+                    <connections>
+                        <outlet property="mapOutlet" destination="uFc-nn-cxr" id="rHI-tW-UVN"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TC2-gk-qVz" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

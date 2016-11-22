@@ -12,6 +12,8 @@
 		C420A2501DE2FC0A00CABB47 /* StudentLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A24F1DE2FC0A00CABB47 /* StudentLocation.swift */; };
 		C420A2521DE312C600CABB47 /* ParseDataPopulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A2511DE312C600CABB47 /* ParseDataPopulation.swift */; };
 		C420A2541DE3358000CABB47 /* StudentLocationTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A2531DE3358000CABB47 /* StudentLocationTableViewController.swift */; };
+		C420A2561DE3BCF200CABB47 /* LoginButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A2551DE3BCF200CABB47 /* LoginButton.swift */; };
+		C420A2581DE3BF7200CABB47 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C420A2571DE3BF7200CABB47 /* MapViewController.swift */; };
 		C44A61291DDF0595008EE4AC /* UdacityClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A61281DDF0595008EE4AC /* UdacityClient.swift */; };
 		C44A612B1DDF0861008EE4AC /* ParseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = C44A612A1DDF0861008EE4AC /* ParseClient.swift */; };
 		C490D2A11DD9287800339B54 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C490D2A01DD9287800339B54 /* AppDelegate.swift */; };
@@ -29,6 +31,8 @@
 		C420A24F1DE2FC0A00CABB47 /* StudentLocation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocation.swift; sourceTree = "<group>"; };
 		C420A2511DE312C600CABB47 /* ParseDataPopulation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseDataPopulation.swift; sourceTree = "<group>"; };
 		C420A2531DE3358000CABB47 /* StudentLocationTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StudentLocationTableViewController.swift; sourceTree = "<group>"; };
+		C420A2551DE3BCF200CABB47 /* LoginButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginButton.swift; sourceTree = "<group>"; };
+		C420A2571DE3BF7200CABB47 /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
 		C44A61281DDF0595008EE4AC /* UdacityClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UdacityClient.swift; sourceTree = "<group>"; };
 		C44A612A1DDF0861008EE4AC /* ParseClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParseClient.swift; sourceTree = "<group>"; };
 		C490D29D1DD9287800339B54 /* On the Map.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "On the Map.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +130,7 @@
 		C490D2B61DD928A100339B54 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				C420A2551DE3BCF200CABB47 /* LoginButton.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -134,6 +139,7 @@
 			isa = PBXGroup;
 			children = (
 				C490D2A21DD9287800339B54 /* LoginViewController.swift */,
+				C420A2571DE3BF7200CABB47 /* MapViewController.swift */,
 				C420A2531DE3358000CABB47 /* StudentLocationTableViewController.swift */,
 			);
 			name = Controller;
@@ -212,10 +218,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				C420A2541DE3358000CABB47 /* StudentLocationTableViewController.swift in Sources */,
+				C420A2561DE3BCF200CABB47 /* LoginButton.swift in Sources */,
 				C42062881DDFA48C00C08064 /* GCD.swift in Sources */,
 				C44A612B1DDF0861008EE4AC /* ParseClient.swift in Sources */,
 				C44A61291DDF0595008EE4AC /* UdacityClient.swift in Sources */,
 				C490D2A31DD9287800339B54 /* LoginViewController.swift in Sources */,
+				C420A2581DE3BF7200CABB47 /* MapViewController.swift in Sources */,
 				C490D2A91DD9287800339B54 /* On_the_Map.xcdatamodeld in Sources */,
 				C420A2521DE312C600CABB47 /* ParseDataPopulation.swift in Sources */,
 				C420628A1DDFD42F00C08064 /* UdacityLogin.swift in Sources */,

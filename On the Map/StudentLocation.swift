@@ -10,16 +10,19 @@ import Foundation
 
 struct StudentLocation {
     
-    var firstName: String
-    var objectId: String
-    var uniqueKey: String
-    var lastName: String
-    var mapString: String
-    var mediaUrl: String
-    var latitude: Float
-    var longitude: Float
+    // MARK: PROPERTIES: StudentLocation
     
-    init (firstName: String, objectId: String, uniqueKey: String, lastName: String, mapString: String, mediaUrl: String, latitude: Float, longitude: Float) {
+    var firstName: String?
+    var objectId: String?
+    var uniqueKey: String?
+    var lastName: String?
+    var mapString: String?
+    var mediaUrl: String?
+    var latitude: Float?
+    var longitude: Float?
+    
+    init (firstName: String?, objectId: String?, uniqueKey: String?, lastName: String?, mapString: String?, mediaUrl: String?, latitude: Float?, longitude: Float?) {
+        
         self.firstName = firstName
         self.lastName = lastName
         self.latitude = latitude

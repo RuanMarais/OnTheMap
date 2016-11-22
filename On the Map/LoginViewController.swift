@@ -16,6 +16,7 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var debugLabel: UILabel!
+    @IBOutlet weak var titleLabel: UILabel!
     
     var keyboardOnScreen = false
     
@@ -25,15 +26,8 @@ class LoginViewController: UIViewController {
         configureUI()
         subscribeKeyboardNotifications()
         self.resignFirstResponderWhenTapped()
-        
-        // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         self.unsubscribeToAllNotifications()
@@ -110,6 +104,7 @@ extension LoginViewController {
         configureBackground()
         configureTextField(textField: usernameTextField)
         configureTextField(textField: passwordTextField)
+        titleLabel.textColor = UIColor.white
     }
 
 }

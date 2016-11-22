@@ -12,20 +12,25 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     
     var appDelegate: AppDelegate!
     var studentLocations = [StudentLocation]()
-    @IBOutlet weak var StudentLocationsTableView: UITableView!
+    @IBOutlet weak var studentLocationsTableView: UITableView!
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        self.studentLocations = self.appDelegate.studentLocationDataStructArray
         retrieveDataReloadTable()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        retrieveDataReloadTable()
+        self.studentLocationsTableView.reloadData()
     }
 
+    @IBAction func refreshTable(_ sender: Any) {
+        retrieveDataReloadTable()
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
@@ -40,8 +45,22 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         let studentLocationArrayItem = studentLocations[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseidentifier) as UITableViewCell!
         
-        cell?.textLabel?.text = studentLocationArrayItem.firstName + " " + studentLocationArrayItem.lastName
-        print(studentLocationArrayItem.firstName + " " + studentLocationArrayItem.lastName)
+        var firstName: String
+        var lastName: String
+        
+        if let name = studentLocationArrayItem.firstName {
+            firstName = name
+        } else {
+            firstName = "Unknown"
+        }
+        
+        if let last = studentLocationArrayItem.lastName {
+            lastName = last
+        } else {
+            lastName = "Unknown"
+        }
+        
+        cell?.textLabel?.text = "\(firstName) \(lastName)"
         
         return cell!
     }
@@ -51,7 +70,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
             performUIUpdatesOnMain {
                 if success {
                     self.studentLocations = self.appDelegate.studentLocationDataStructArray
-                    self.StudentLocationsTableView!.reloadData()
+                    self.studentLocationsTableView!.reloadData()
                 } else {
                     print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
                 }

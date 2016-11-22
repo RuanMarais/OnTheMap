@@ -51,7 +51,7 @@ struct Constants {
     }
     
     struct ParseApiQueryValues {
-        static let limitNumber = 100
+        static let limitNumber = 1000
     }
     
 }
