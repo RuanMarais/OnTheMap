@@ -19,56 +19,65 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.retrieveData()
-        
-        for student in studentLocations {
-            
-            var studentLatitude: CLLocationDegrees
-            var studentLongitude: CLLocationDegrees
-            var first: String
-            var last: String
-            var mediaURL: String
-            
-            if let lat = student.latitude {
-                studentLatitude = CLLocationDegrees(lat)
-            } else {
-                continue
+        ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.studentLocations = self.appDelegate.studentLocationDataStructArray
+                    
+                    for student in self.studentLocations {
+                        
+                        var studentLatitude: CLLocationDegrees
+                        var studentLongitude: CLLocationDegrees
+                        var first: String
+                        var last: String
+                        var mediaURL: String
+                        
+                        if let lat = student.latitude {
+                            studentLatitude = CLLocationDegrees(lat)
+                        } else {
+                            continue
+                        }
+                        
+                        if let long = student.longitude {
+                            studentLongitude = CLLocationDegrees(long)
+                        } else {
+                            continue
+                        }
+                        
+                        if let firstName = student.firstName {
+                            first = firstName
+                        } else {
+                            continue
+                        }
+                        
+                        if let lastName = student.lastName {
+                            last = lastName
+                        } else {
+                            continue
+                        }
+                        
+                        if let media = student.mediaUrl {
+                            mediaURL = media
+                        } else {
+                            continue
+                        }
+                        
+                        // The lat and long are used to create a CLLocationCoordinates2D instance.
+                        let coordinate = CLLocationCoordinate2D(latitude: studentLatitude, longitude: studentLongitude)
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = coordinate
+                        annotation.title = "\(first) \(last)"
+                        annotation.subtitle = mediaURL
+                        
+                        self.annotations.append(annotation)
+                    }
+                    self.mapOutlet.addAnnotations(self.annotations)
+                    
+                } else {
+                    print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
+                }
             }
-            
-            if let long = student.longitude {
-                studentLongitude = CLLocationDegrees(long)
-            } else {
-                continue
-            }
-            
-            if let firstName = student.firstName {
-                first = firstName
-            } else {
-                continue
-            }
-            
-            if let lastName = student.lastName {
-                last = lastName
-            } else {
-                continue
-            }
-            
-            if let media = student.mediaUrl {
-                mediaURL = media
-            } else {
-                continue
-            }
-            
-            // The lat and long are used to create a CLLocationCoordinates2D instance.
-            let coordinate = CLLocationCoordinate2D(latitude: studentLatitude, longitude: studentLongitude)
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = coordinate
-            annotation.title = "\(first) \(last)"
-            annotation.subtitle = mediaURL
-            
-            annotations.append(annotation)
         }
-        self.mapOutlet.addAnnotations(annotations)
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -100,21 +109,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
     }
-
-    func retrieveData() {
-        
-        ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
-            performUIUpdatesOnMain {
-                if success {
-                    self.studentLocations = self.appDelegate.studentLocationDataStructArray
-                    
-                } else {
-                    print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
-                }
-            }
-        }
-    }
-
 }
 
 
