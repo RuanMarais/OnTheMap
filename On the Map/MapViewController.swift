@@ -93,10 +93,15 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     }
     
     @IBAction func newPin(_ sender: Any) {
-        if (ParseClient.sharedInstance().checkPinPresent()) {
-            self.present(alert!, animated: true, completion: nil)
-        } else {
-            self.presentPinInputController(pinReplace: false)
+        
+        ParseClient.sharedInstance().checkPinPresent(){(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.present(self.alert!, animated: true, completion: nil)
+                } else {
+                    self.presentPinInputController(pinReplace: false)
+                }
+            }
         }
     }
     

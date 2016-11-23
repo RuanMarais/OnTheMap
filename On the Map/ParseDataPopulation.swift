@@ -92,7 +92,6 @@ extension ParseClient {
                 }
             
             completionHandlerForParse(true, nil)
-            
         }
     }
     
@@ -100,9 +99,17 @@ extension ParseClient {
         
     }
     
-    func checkPinPresent() -> Bool {
-        return true
+    func checkPinPresent(completionHandlerForCheckPin: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
+        var parameters = [String: AnyObject]()
+        parameters[Constants.ParseApiQueryKeys.objectMatch] = self.appDelegate.student?.uniqueKey as AnyObject?
+        
+        taskForPOSTMethod(method: nil, parameters: parameters){(results, error) in
+            if (results != nil) {
+                completionHandlerForCheckPin(true, nil)
+            } else {
+                completionHandlerForCheckPin(false, error)
+            }
+        }
     }
-    
 }

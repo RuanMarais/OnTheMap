@@ -50,6 +50,7 @@ struct Constants {
     
     struct ParseApiQueryKeys {
         static let limit = "limit"
+        static let objectMatch = "where"
     }
     
     struct ParseApiQueryValues {
