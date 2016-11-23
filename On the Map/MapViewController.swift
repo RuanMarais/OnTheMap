@@ -31,6 +31,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         alert?.addAction(noReplaceAction)
         
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
         ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
             performUIUpdatesOnMain {
                 if success {

@@ -18,10 +18,10 @@ struct StudentLocation {
     var lastName: String?
     var mapString: String?
     var mediaUrl: String?
-    var latitude: Float?
-    var longitude: Float?
+    var latitude: Double?
+    var longitude: Double?
     
-    init (firstName: String?, objectId: String?, uniqueKey: String?, lastName: String?, mapString: String?, mediaUrl: String?, latitude: Float?, longitude: Float?) {
+    init (firstName: String?, objectId: String?, uniqueKey: String?, lastName: String?, mapString: String?, mediaUrl: String?, latitude: Double?, longitude: Double?) {
         
         self.firstName = firstName
         self.lastName = lastName

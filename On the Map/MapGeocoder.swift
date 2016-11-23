@@ -1,5 +1,5 @@
 //
-//  File.swift
+//  MapGeocoder.swift
 //  On the Map
 //
 //  Created by Dr GJK Marais on 2016/11/22.
@@ -9,15 +9,16 @@
 import Foundation
 import MapKit
 
-struct MapData {
+struct MapGeocoder {
     
     static func geoCodeData (locationString: String) -> MKPlacemark? {
+        
         let geocoder: CLGeocoder = CLGeocoder()
         var placemarkReturn: MKPlacemark? = nil
         geocoder.geocodeAddressString(locationString) {(placemarks, error) in
             
             guard (error == nil) else {
-                print(error as Any)
+                print("geocoder error")
                 return
             }
  

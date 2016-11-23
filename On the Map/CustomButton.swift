@@ -1,5 +1,5 @@
 //
-//  LoginButton.swift
+//  CustomButton.swift
 //  On the Map
 //
 //  Created by Dr GJK Marais on 2016/11/21.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class LoginButton: UIButton {
+class CustomButton: UIButton {
 
     /*
     // Only override draw() if you perform custom drawing.

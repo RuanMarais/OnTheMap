@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
                         self.completeLogin()
                     } else {
                         self.debugLabel.text = "Login failed"
-                        print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
+                        
                         self.setUIEnabled(enabled: true)
                     }
                 }

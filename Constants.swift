@@ -64,4 +64,9 @@ struct Constants {
         static let noReplace = "Don't replace"
     }
     
+    struct ParseApiRequestType {
+        static let post = "POST"
+        static let put = "PUT"
+    }
+    
 }

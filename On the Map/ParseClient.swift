@@ -20,15 +20,18 @@ class ParseClient: NSObject {
         appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
-    func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) -> URLSessionDataTask {
+    func taskForGETMethod(method: String?, parameters: [String:AnyObject],completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
-        // Base parameter dictionary
+        // parameters for URL
         var parameters = parameters
         let session = appDelegate.session
-        // request from URL
+        // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
+
+        request.addValue("\(Constants.ParseApiKeys.AppId)", forHTTPHeaderField: "X-Parse-Application-Id")
+        request.addValue("\(Constants.ParseApiKeys.RestApiKey)", forHTTPHeaderField: "X-Parse-REST-API-Key")
         
-        // request made
+        // making request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(error: String) {
@@ -38,7 +41,7 @@ class ParseClient: NSObject {
             
             // request error
             guard (error == nil) else {
-                sendError(error: "Request Error: \(error)")
+                sendError(error: "Request error: \(error)")
                 return
             }
             
@@ -50,36 +53,38 @@ class ParseClient: NSObject {
             
             // no data returned error
             guard let data = data else {
-                sendError(error: "No data was returned")
+                sendError(error: "No data was returned by the request!")
                 return
             }
             
-            // parse the data
+            //parse data
             self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForGET)
+            
         }
         
         //start request
         task.resume()
         
-        return task
     }
     
-    func taskForPOSTMethod(method: String?, parameters: [String:AnyObject],completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+    func taskForPOSTMethod(method: String?, requestType: String, parameters: [String:AnyObject], jsonBody: String, completionHandlerForPOST: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // parameters for URL
         var parameters = parameters
         let session = appDelegate.session
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
-        //print(ParseURLFromParameters(parameters: parameters, withPathExtension: method))
-
+        request.httpMethod = requestType
         request.addValue("\(Constants.ParseApiKeys.AppId)", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("\(Constants.ParseApiKeys.RestApiKey)", forHTTPHeaderField: "X-Parse-REST-API-Key")
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
         // making request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
             func sendError(error: String) {
+                print(error)
                 let userInfo = [NSLocalizedDescriptionKey : error]
                 completionHandlerForPOST(nil, NSError(domain: "taskForGETMethod", code: 1, userInfo: userInfo))
             }
@@ -104,14 +109,11 @@ class ParseClient: NSObject {
             
             //parse data
             self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForPOST)
-            
-        }
-        
+            }
         //start request
         task.resume()
-        
     }
-    
+
     // MARK: Url generator for Udacity API
     
     func ParseURLFromParameters(parameters: [String:AnyObject], withPathExtension: String? = nil) -> URL {

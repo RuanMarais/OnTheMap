@@ -205,66 +205,67 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BZu-FN-xjQ">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIv-pb-SKM">
+                                <rect key="frame" x="0.0" y="20" width="375" height="54.5"/>
                                 <items>
-                                    <navigationItem title="New Pin" id="j6u-2x-2Fd">
-                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="Luw-sz-5aR">
+                                    <navigationItem title="New Pin Location" id="dwJ-dh-IOM">
+                                        <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="btw-Bw-hJL">
                                             <connections>
-                                                <action selector="cancelPin:" destination="Lde-0b-Ezc" id="ln4-f2-mBY"/>
+                                                <action selector="cancelInputPin:" destination="Lde-0b-Ezc" id="6lW-4v-eFj"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="HAS-iL-7gs">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gpF-Bq-to7">
+                                <rect key="frame" x="16" y="263.5" width="343" height="140"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iMu-9W-LGh">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="128"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v7H-B8-1LL">
-                                        <rect key="frame" x="0.0" y="194.5" width="375" height="20.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfX-vU-X6T">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="jgF-FQ-LVb"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="H8r-Rk-Sdw">
-                                        <rect key="frame" x="0.0" y="282" width="375" height="30"/>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4iU-4h-aur">
+                                        <rect key="frame" x="0.0" y="50" width="343" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="x1z-ZN-ySv"/>
+                                        </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pkX-Yi-yKs">
-                                        <rect key="frame" x="0.0" y="378.5" width="375" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bh-nN-KqW">
+                                        <rect key="frame" x="0.0" y="100" width="343" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="0Lf-tu-rud"/>
+                                        </constraints>
+                                        <state key="normal" title="View on Map"/>
                                         <connections>
-                                            <action selector="showOnMap:" destination="Lde-0b-Ezc" eventType="touchUpInside" id="Nl6-PV-03G"/>
+                                            <action selector="showPinMap:" destination="Lde-0b-Ezc" eventType="touchUpInside" id="ZQK-iV-okm"/>
                                         </connections>
                                     </button>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iYE-3k-F1U">
-                                        <rect key="frame" x="0.0" y="475" width="375" height="128"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    </view>
                                 </subviews>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="BZu-FN-xjQ" secondAttribute="trailing" id="3OE-FT-QLy"/>
-                            <constraint firstItem="BZu-FN-xjQ" firstAttribute="top" secondItem="13y-M0-hfv" secondAttribute="bottom" id="KC9-Ka-X4Z"/>
-                            <constraint firstItem="HAS-iL-7gs" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leading" id="M19-eU-XR9"/>
-                            <constraint firstItem="BZu-FN-xjQ" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leading" id="O25-cq-6Zb"/>
-                            <constraint firstItem="HAS-iL-7gs" firstAttribute="top" secondItem="BZu-FN-xjQ" secondAttribute="bottom" id="Sru-QN-lVN"/>
-                            <constraint firstAttribute="trailing" secondItem="HAS-iL-7gs" secondAttribute="trailing" id="plL-Vm-NRC"/>
-                            <constraint firstItem="DYR-Lh-dGr" firstAttribute="top" secondItem="HAS-iL-7gs" secondAttribute="bottom" id="rdz-y6-jxt"/>
+                            <constraint firstItem="nIv-pb-SKM" firstAttribute="top" secondItem="13y-M0-hfv" secondAttribute="bottom" id="2FC-u4-AoG"/>
+                            <constraint firstAttribute="trailing" secondItem="nIv-pb-SKM" secondAttribute="trailing" id="2g7-oP-9ai"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="centerY" secondItem="aMs-6I-Zea" secondAttribute="centerY" id="D9x-E3-jew"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leadingMargin" id="Jm7-9M-SNi"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="top" secondItem="nIv-pb-SKM" secondAttribute="bottom" constant="189" id="jmL-wK-ins"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="trailing" secondItem="aMs-6I-Zea" secondAttribute="trailingMargin" id="oXi-7Q-DDW"/>
+                            <constraint firstItem="nIv-pb-SKM" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leading" id="pFH-xa-zZP"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="pinInputButton" destination="pkX-Yi-yKs" id="6jU-1r-1ee"/>
-                        <outlet property="pinInputLabel" destination="v7H-B8-1LL" id="jPd-dZ-1wB"/>
-                        <outlet property="pinInputTextfield" destination="H8r-Rk-Sdw" id="dOJ-4J-nVa"/>
+                        <outlet property="pinInputLabel" destination="ZfX-vU-X6T" id="ZsA-d6-7vG"/>
+                        <outlet property="pinInputTextfield" destination="4iU-4h-aur" id="Uyo-6L-Rfz"/>
+                        <outlet property="showMapButton" destination="5bh-nN-KqW" id="1xh-db-cDa"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dSI-hQ-c1v" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -274,7 +275,7 @@
         <!--New Pin Map View View Controller-->
         <scene sceneID="RJZ-KQ-Ui2">
             <objects>
-                <viewController id="ZQS-Ll-0MR" customClass="NewPinMapViewViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="newPinMap" id="ZQS-Ll-0MR" customClass="NewPinMapViewViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="PL0-9F-GQ8"/>
                         <viewControllerLayoutGuide type="bottom" id="CQN-O9-EBa"/>
@@ -286,7 +287,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wL5-pd-sD1">
                                 <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zh0-xk-hvE">
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Desired Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zh0-xk-hvE">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -303,7 +304,12 @@
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EH7-28-8YY">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="New Pin" id="HRV-7E-pV1">
+                                    <navigationItem title="New Pin Link" id="HRV-7E-pV1">
+                                        <barButtonItem key="leftBarButtonItem" title="Post Pin" id="Jig-VO-3mE">
+                                            <connections>
+                                                <action selector="postPin:" destination="ZQS-Ll-0MR" id="IDj-92-oQg"/>
+                                            </connections>
+                                        </barButtonItem>
                                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="4q9-xk-z7j">
                                             <connections>
                                                 <action selector="cancelPin:" destination="ZQS-Ll-0MR" id="WF4-nm-Bup"/>
