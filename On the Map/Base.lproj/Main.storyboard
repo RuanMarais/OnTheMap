@@ -263,6 +263,8 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="navBar" destination="nIv-pb-SKM" id="SQV-e3-qbT"/>
+                        <outlet property="navigationTitle" destination="dwJ-dh-IOM" id="glV-OF-kFj"/>
                         <outlet property="pinInputLabel" destination="ZfX-vU-X6T" id="ZsA-d6-7vG"/>
                         <outlet property="pinInputTextfield" destination="4iU-4h-aur" id="Uyo-6L-Rfz"/>
                         <outlet property="showMapButton" destination="5bh-nN-KqW" id="1xh-db-cDa"/>
@@ -333,6 +335,7 @@
                     <connections>
                         <outlet property="mapView" destination="IAq-QF-VLr" id="EaI-r5-Ntr"/>
                         <outlet property="mediaLinkTextfield" destination="Zh0-xk-hvE" id="Rfh-mB-92b"/>
+                        <outlet property="postPin" destination="Jig-VO-3mE" id="6dn-CK-ugr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iUi-4b-9uh" userLabel="First Responder" sceneMemberID="firstResponder"/>

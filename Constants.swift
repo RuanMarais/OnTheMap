@@ -69,4 +69,12 @@ struct Constants {
         static let put = "PUT"
     }
     
+    struct PostingAlerts {
+        static let noLinkTitle = "No Media Link entered"
+        static let noLinkPrompt = "Do you wish to continue without adding a media link to your pin"
+        static let continueNoLink = "Continue"
+        static let addLink = "Add Link"
+    }
+    
+    
 }

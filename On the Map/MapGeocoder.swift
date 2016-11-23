@@ -18,7 +18,6 @@ struct MapGeocoder {
         geocoder.geocodeAddressString(locationString) {(placemarks, error) in
             
             guard (error == nil) else {
-                print("geocoder error")
                 return
             }
  

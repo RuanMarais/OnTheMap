@@ -11,11 +11,13 @@ import MapKit
 
 class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
 
+    @IBOutlet weak var postPin: UIBarButtonItem!
     @IBOutlet weak var mediaLinkTextfield: UITextField!
     @IBOutlet weak var mapView: MKMapView!
     var replace = false
     var appDelegate: AppDelegate!
     var keyboardOnScreen = false
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -23,8 +25,21 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
         configureUI()
         subscribeKeyboardNotifications()
         self.resignFirstResponderWhenTapped()
+        
+        alert = UIAlertController(title: Constants.PostingAlerts.noLinkTitle , message: Constants.PostingAlerts.noLinkPrompt, preferredStyle: .alert)
+        
+        let continueNoLink = UIAlertAction(title: Constants.PostingAlerts.continueNoLink, style: .default){(parameter) in
+            self.appDelegate.student?.mediaUrl = ""
+            self.postPinNetwork()
+        }
+        let addLink = UIAlertAction(title: Constants.PostingAlerts.addLink, style: .cancel, handler: nil)
+        
+        alert?.addAction(continueNoLink)
+        alert?.addAction(addLink)
+        
+        
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         var region: MKCoordinateRegion = self.mapView.region
         region.center = (appDelegate.placemark?.coordinate)!
@@ -39,12 +54,18 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
     }
     
     @IBAction func postPin(_ sender: Any) {
-        print(appDelegate.student!.firstName!)
-        print(appDelegate.student!.lastName!)
-        print(appDelegate.student!.latitude!)
-        print(appDelegate.student!.longitude!)
-        print(appDelegate.student!.uniqueKey!)
-        print(appDelegate.student!.mapString!)
+        
+        userDidTapView(sender: self)
+        postPin.isEnabled = false
+        
+        if mediaLinkTextfield.text!.isEmpty {
+            
+            self.present(self.alert!, animated: true, completion: nil)
+        } else {
+            
+            appDelegate.student?.mediaUrl = mediaLinkTextfield.text
+            postPinNetwork()
+        }
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
@@ -167,5 +188,25 @@ extension NewPinMapViewViewController {
         configureTextField(textField: mediaLinkTextfield)
         
     }
+    
+    func postPinNetwork() {
+        ParseClient.sharedInstance().postPin(replace: replace, student: appDelegate.student!){(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.presentMapController()
+                    print("success")
+                } else {
+                    self.postPin.isEnabled = true
+                }
+            }
+        
+        }
+    }
+    
+    func presentMapController() {
+        let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+        self.present(controller, animated: true, completion: nil)
+    }
+
 }
 

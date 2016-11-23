@@ -120,7 +120,8 @@ extension ParseClient {
         }
         } else {
             
-            let method = "/\(student.objectId)"
+            let objectId = student.objectId!
+            let method = "/\(objectId)"
             
             taskForPOSTMethod(method: method, requestType: "PUT", parameters: parameters, jsonBody: jsonBody){(results, error) in
                 
@@ -142,14 +143,33 @@ extension ParseClient {
     func checkPinPresent(completionHandlerForCheckPin: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
         var parameters = [String: AnyObject]()
-        parameters[Constants.ParseApiQueryKeys.objectMatch] = self.appDelegate.student?.uniqueKey as AnyObject?
+        guard let userID = self.appDelegate.student?.uniqueKey else {
+            completionHandlerForCheckPin(false, NSError(domain: "student data struct contains no uniqueKey", code: 0, userInfo: [NSLocalizedDescriptionKey: "found nil in student data struct - uniqueKey"]))
+            return
+        }
+        parameters[Constants.ParseApiQueryKeys.objectMatch] = "{\"uniqueKey\": \"\(userID)\"}" as AnyObject
         
         taskForGETMethod(method: nil, parameters: parameters){(results, error) in
-            if (results != nil) {
-                completionHandlerForCheckPin(true, nil)
-            } else {
+            
+            guard (error == nil) else {
                 completionHandlerForCheckPin(false, error)
+                return
             }
+            
+            guard let resultsArray = results?["results"] as? [[String: AnyObject]] else {
+                completionHandlerForCheckPin(false, NSError(domain: "Parse database check pin parse", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not retrieve ID of previous Student Location object"]))
+                return
+            }
+            
+            let objectOne = resultsArray[0]
+            
+            guard let objectId = objectOne["objectId"] as? String else {
+                completionHandlerForCheckPin(false, NSError(domain: "Parse database check pin parse", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not retrieve ID of previous Student Location object"]))
+                return
+            }
+            
+            completionHandlerForCheckPin(true, nil)
+            self.appDelegate.student?.objectId = objectId
         }
     }
 }
