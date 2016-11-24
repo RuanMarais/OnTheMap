@@ -51,10 +51,12 @@ struct Constants {
     struct ParseApiQueryKeys {
         static let limit = "limit"
         static let objectMatch = "where"
+        static let order = "order"
     }
     
     struct ParseApiQueryValues {
         static let limitNumber = 1000
+        static let ascendingTime = "-updatedAt"
     }
     
     struct AlertStrings {

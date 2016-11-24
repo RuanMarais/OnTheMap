@@ -11,15 +11,19 @@ import MapKit
 
 class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
 
+    @IBOutlet weak var MapViewLable: UILabel!
     @IBOutlet weak var postPin: UIBarButtonItem!
     @IBOutlet weak var mediaLinkTextfield: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    
     var replace = false
     var appDelegate: AppDelegate!
     var keyboardOnScreen = false
+    var keyboardRequiredShift = false
     var alert: UIAlertController?
     
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         configureUI()
@@ -32,11 +36,13 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
             self.appDelegate.student?.mediaUrl = ""
             self.postPinNetwork()
         }
-        let addLink = UIAlertAction(title: Constants.PostingAlerts.addLink, style: .cancel, handler: nil)
+        let addLink = UIAlertAction(title: Constants.PostingAlerts.addLink, style: .cancel){(parameter) in
+            self.setUIEnabled(enabled: true)
         
+        }
+
         alert?.addAction(continueNoLink)
         alert?.addAction(addLink)
-        
         
     }
 
@@ -56,13 +62,11 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
     @IBAction func postPin(_ sender: Any) {
         
         userDidTapView(sender: self)
-        postPin.isEnabled = false
+        setUIEnabled(enabled: false)
         
         if mediaLinkTextfield.text!.isEmpty {
-            
             self.present(self.alert!, animated: true, completion: nil)
         } else {
-            
             appDelegate.student?.mediaUrl = mediaLinkTextfield.text
             postPinNetwork()
         }
@@ -99,19 +103,24 @@ extension NewPinMapViewViewController: UITextFieldDelegate {
     // Show/Hide Keyboard
     
     func keyboardWillShow(notification: NSNotification) {
-        if !keyboardOnScreen {
-            view.frame.origin.y -= keyboardHeight(notification: notification)
+        let keyBoardHeight = keyboardHeight(notification: notification)
+        let availableSpace = self.view.frame.height - mediaLinkTextfield.frame.maxY
+        
+        if !keyboardOnScreen && (keyBoardHeight > availableSpace)  {
+            view.frame.origin.y -= keyBoardHeight
+            keyboardRequiredShift = true
         }
     }
     
     func keyboardWillHide(notification: NSNotification) {
         if keyboardOnScreen {
             view.frame.origin.y += keyboardHeight(notification: notification)
+            keyboardRequiredShift = false 
         }
     }
     
     func keyboardDidShow(notification: NSNotification) {
-        keyboardOnScreen = true
+        keyboardOnScreen = keyboardRequiredShift
     }
     
     func keyboardDidHide(notification: NSNotification) {
@@ -186,25 +195,42 @@ extension NewPinMapViewViewController {
     func configureUI() {
         configureBackground()
         configureTextField(textField: mediaLinkTextfield)
+        MapViewLable.textColor = UIColor.white
         
     }
     
+    func setUIEnabled(enabled: Bool) {
+        mediaLinkTextfield.isEnabled = enabled
+        postPin.isEnabled = enabled
+        
+        if (enabled) {
+            MapViewLable.text = "add a link..."
+        } else {
+            MapViewLable.text = "Loading..."
+        }
+       
+    }
+    
+}
+
+extension NewPinMapViewViewController {
+
     func postPinNetwork() {
+        
         ParseClient.sharedInstance().postPin(replace: replace, student: appDelegate.student!){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.presentMapController()
-                    print("success")
                 } else {
-                    self.postPin.isEnabled = true
+                    self.setUIEnabled(enabled: true)
                 }
             }
-        
         }
     }
     
     func presentMapController() {
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
+        
         self.present(controller, animated: true, completion: nil)
     }
 

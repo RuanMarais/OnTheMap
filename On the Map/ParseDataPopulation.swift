@@ -15,6 +15,7 @@ extension ParseClient {
         self.appDelegate.studentLocationDataStructArray.removeAll()
         var parameters = [String: AnyObject]()
         parameters[Constants.ParseApiQueryKeys.limit] = "\(limitResults)" as AnyObject?
+        parameters[Constants.ParseApiQueryKeys.order] = Constants.ParseApiQueryValues.ascendingTime as AnyObject?
         
         taskForGETMethod(method: nil, parameters: parameters) {(results, error) in
         
@@ -117,6 +118,7 @@ extension ParseClient {
             
             completionHandlerForPostPin(true, nil)
             self.appDelegate.student?.objectId = objectId
+                
         }
         } else {
             

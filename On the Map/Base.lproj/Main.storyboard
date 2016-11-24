@@ -286,27 +286,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="wL5-pd-sD1">
-                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Desired Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zh0-xk-hvE">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="301.5"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                    </textField>
-                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="IAq-QF-VLr">
-                                        <rect key="frame" x="0.0" y="301.5" width="375" height="301.5"/>
-                                        <connections>
-                                            <outlet property="delegate" destination="ZQS-Ll-0MR" id="rF4-65-a30"/>
-                                        </connections>
-                                    </mapView>
-                                </subviews>
-                            </stackView>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EH7-28-8YY">
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
-                                    <navigationItem title="New Pin Link" id="HRV-7E-pV1">
+                                    <navigationItem id="HRV-7E-pV1">
                                         <barButtonItem key="leftBarButtonItem" title="Post Pin" id="Jig-VO-3mE">
                                             <connections>
                                                 <action selector="postPin:" destination="ZQS-Ll-0MR" id="IDj-92-oQg"/>
@@ -320,21 +303,54 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZnO-1J-caI">
+                                <rect key="frame" x="16" y="64" width="343" height="583"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add a link..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ec5-hg-UMy">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="203"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="34"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pcJ-jX-wwA">
+                                        <rect key="frame" x="0.0" y="213" width="343" height="80"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="80" id="eDu-GL-ph0"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-ny-oQh">
+                                        <rect key="frame" x="0.0" y="303" width="343" height="280"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="280" id="SVW-7h-XK6"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="delegate" destination="ZQS-Ll-0MR" id="ho3-U2-rBw"/>
+                                        </connections>
+                                    </mapView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="583" id="Nie-nm-Old"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="CQN-O9-EBa" firstAttribute="top" secondItem="wL5-pd-sD1" secondAttribute="bottom" id="D4h-zm-u4w"/>
-                            <constraint firstItem="wL5-pd-sD1" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leading" id="Hv1-Do-h8p"/>
+                            <constraint firstItem="ZnO-1J-caI" firstAttribute="trailing" secondItem="VqI-vd-yIO" secondAttribute="trailingMargin" id="EZ8-si-2Gd"/>
                             <constraint firstItem="EH7-28-8YY" firstAttribute="top" secondItem="PL0-9F-GQ8" secondAttribute="bottom" id="MgN-CX-19J"/>
+                            <constraint firstItem="CQN-O9-EBa" firstAttribute="top" secondItem="ZnO-1J-caI" secondAttribute="bottom" constant="20" id="QmK-eG-gEs"/>
                             <constraint firstAttribute="trailing" secondItem="EH7-28-8YY" secondAttribute="trailing" id="aoo-Il-5yo"/>
                             <constraint firstItem="EH7-28-8YY" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leading" id="fkU-oY-TyA"/>
-                            <constraint firstItem="wL5-pd-sD1" firstAttribute="top" secondItem="EH7-28-8YY" secondAttribute="bottom" id="mhr-h1-cv0"/>
-                            <constraint firstAttribute="trailing" secondItem="wL5-pd-sD1" secondAttribute="trailing" id="wSf-3Y-Lrj"/>
+                            <constraint firstItem="ZnO-1J-caI" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leadingMargin" id="lfE-54-ZGP"/>
+                            <constraint firstItem="ZnO-1J-caI" firstAttribute="top" secondItem="EH7-28-8YY" secondAttribute="bottom" id="zSx-aO-SAR"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="mapView" destination="IAq-QF-VLr" id="EaI-r5-Ntr"/>
-                        <outlet property="mediaLinkTextfield" destination="Zh0-xk-hvE" id="Rfh-mB-92b"/>
+                        <outlet property="MapViewLable" destination="Ec5-hg-UMy" id="Vw9-ng-xVx"/>
+                        <outlet property="mapView" destination="qc9-ny-oQh" id="rVe-xw-bZ2"/>
+                        <outlet property="mediaLinkTextfield" destination="pcJ-jX-wwA" id="irg-FC-2eA"/>
                         <outlet property="postPin" destination="Jig-VO-3mE" id="6dn-CK-ugr"/>
                     </connections>
                 </viewController>
@@ -369,7 +385,11 @@
                                                 <action selector="newPin:" destination="5NC-vg-VVe" id="nE0-vw-wWO"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="0dt-cU-V74"/>
+                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="0dt-cU-V74">
+                                            <connections>
+                                                <action selector="refreshMap:" destination="5NC-vg-VVe" id="vZI-On-iyi"/>
+                                            </connections>
+                                        </barButtonItem>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

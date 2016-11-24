@@ -31,6 +31,75 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         alert?.addAction(noReplaceAction)
         
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        populateMap()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        populateMap()
+        if let placemarkPin = self.appDelegate.placemark {
+            var region: MKCoordinateRegion = self.mapOutlet.region
+            region.center = (placemarkPin.coordinate)
+            region.span.longitudeDelta /= 8.0
+            region.span.latitudeDelta /= 8.0
+            self.mapOutlet.setRegion(region, animated: true)
+        }
+    }
+    
+    @IBAction func refreshMap(_ sender: Any) {
+        populateMap()
+    }
+    
+    @IBAction func newPin(_ sender: Any) {
+        
+        ParseClient.sharedInstance().checkPinPresent(){(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.present(self.alert!, animated: true, completion: nil)
+                } else {
+                    self.presentPinInputController(pinReplace: false)
+                }
+            }
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+        
+        let reuseId = "pin"
+        
+        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        
+        if pinView == nil {
+            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+            pinView!.canShowCallout = true
+            pinView!.pinTintColor = .red
+            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
+        }
+        else {
+            pinView!.annotation = annotation
+        }
+        
+        return pinView
+    }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
+        if control == view.rightCalloutAccessoryView {
+            let app = UIApplication.shared
+            if let toOpen = view.annotation?.subtitle! {
+                let url = URL(fileURLWithPath: toOpen)
+                let options = [String: Any]()
+                app.open(url, options: options , completionHandler: nil)
+            }
+        }
+    }
+    
+    func presentPinInputController(pinReplace: Bool) {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "NewPinInput") as! NewPinInputViewController
+        controller.replace = pinReplace
+        self.present(controller, animated: true, completion: nil)
+    }
+    
+    func populateMap() {
         
         ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
             performUIUpdatesOnMain {
@@ -91,55 +160,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
-    }
-    
-    @IBAction func newPin(_ sender: Any) {
-        
-        ParseClient.sharedInstance().checkPinPresent(){(success, error) in
-            performUIUpdatesOnMain {
-                if success {
-                    self.present(self.alert!, animated: true, completion: nil)
-                } else {
-                    self.presentPinInputController(pinReplace: false)
-                }
-            }
-        }
-    }
-    
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        
-        let reuseId = "pin"
-        
-        var pinView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-        
-        if pinView == nil {
-            pinView = MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            pinView!.canShowCallout = true
-            pinView!.pinTintColor = .red
-            pinView!.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        }
-        else {
-            pinView!.annotation = annotation
-        }
-        
-        return pinView
-    }
 
-    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
-        if control == view.rightCalloutAccessoryView {
-            let app = UIApplication.shared
-            if let toOpen = view.annotation?.subtitle! {
-                let url = URL(fileURLWithPath: toOpen)
-                let options = [String: Any]()
-                app.open(url, options: options , completionHandler: nil)
-            }
-        }
-    }
-    
-    func presentPinInputController(pinReplace: Bool) {
-        let controller = self.storyboard!.instantiateViewController(withIdentifier: "NewPinInput") as! NewPinInputViewController
-        controller.replace = pinReplace
-        self.present(controller, animated: true, completion: nil)
     }
 }
 

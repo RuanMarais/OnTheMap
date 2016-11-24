@@ -33,7 +33,6 @@ class NewPinInputViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.showMapButton.isEnabled = true
-        
     }
     
     @IBAction func cancelInputPin(_ sender: Any) {
@@ -152,6 +151,7 @@ extension NewPinInputViewController {
     func configureUI() {
         configureBackground()
         configureTextField(textField: pinInputTextfield)
+        pinInputLabel.textColor = UIColor.white
     }
     
     func presentPinMapController(pinReplace: Bool) {

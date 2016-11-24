@@ -30,7 +30,7 @@ class ParseClient: NSObject {
         
         request.addValue("\(Constants.ParseApiKeys.AppId)", forHTTPHeaderField: "X-Parse-Application-Id")
         request.addValue("\(Constants.ParseApiKeys.RestApiKey)", forHTTPHeaderField: "X-Parse-REST-API-Key")
-        print(ParseURLFromParameters(parameters: parameters, withPathExtension: method))
+        
         // making request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
@@ -80,7 +80,6 @@ class ParseClient: NSObject {
         request.addValue("application/json", forHTTPHeaderField: "Content-Type")
         request.httpBody = jsonBody.data(using: String.Encoding.utf8)
         
-        print(ParseURLFromParameters(parameters: parameters, withPathExtension: method))
         // making request
         let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
             
