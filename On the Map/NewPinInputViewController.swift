@@ -16,8 +16,6 @@ class NewPinInputViewController: UIViewController {
     @IBOutlet weak var pinInputTextfield: UITextField!
     
     @IBOutlet weak var navBar: UINavigationBar!
-    @IBOutlet weak var navigationTitle: UINavigationItem!
-    
     var replace: Bool = false
     var keyboardOnScreen = false
     var appDelegate: AppDelegate!
@@ -152,6 +150,7 @@ extension NewPinInputViewController {
         configureBackground()
         configureTextField(textField: pinInputTextfield)
         pinInputLabel.textColor = UIColor.white
+        navBar.barTintColor = Constants.UIValues.ColorLight
     }
     
     func presentPinMapController(pinReplace: Bool) {

@@ -15,6 +15,7 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
     @IBOutlet weak var postPin: UIBarButtonItem!
     @IBOutlet weak var mediaLinkTextfield: UITextField!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var navBar: UINavigationBar!
     
     var replace = false
     var appDelegate: AppDelegate!
@@ -57,6 +58,7 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
 
     @IBAction func cancelPin(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+        self.appDelegate.placemark = nil
     }
     
     @IBAction func postPin(_ sender: Any) {
@@ -196,6 +198,7 @@ extension NewPinMapViewViewController {
         configureBackground()
         configureTextField(textField: mediaLinkTextfield)
         MapViewLable.textColor = UIColor.white
+        navBar.barTintColor = Constants.UIValues.ColorLight
         
     }
     

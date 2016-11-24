@@ -35,6 +35,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         
     }
     
+    // shows the annotation just placed
     override func viewWillAppear(_ animated: Bool) {
         populateMap()
         if let placemarkPin = self.appDelegate.placemark {
@@ -43,6 +44,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             region.span.longitudeDelta /= 8.0
             region.span.latitudeDelta /= 8.0
             self.mapOutlet.setRegion(region, animated: true)
+            if (self.appDelegate.student?.objectId != nil) {
+                let annotation = MKPointAnnotation()
+                var firstName = ""
+                var lastName = ""
+                if let name = self.appDelegate.student?.firstName {
+                    firstName = name
+                }
+                if let name = self.appDelegate.student?.lastName {
+                    lastName = name
+                }
+                annotation.coordinate = (self.appDelegate.placemark?.coordinate)!
+                annotation.title = "\(firstName) \(lastName)"
+                if let link = self.appDelegate.student?.mediaUrl {
+                    annotation.subtitle = link
+                } else {
+                    annotation.subtitle = ""
+                }
+                self.mapOutlet.addAnnotation(annotation)
+            }
         }
     }
     
@@ -85,8 +105,8 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
-            if let toOpen = view.annotation?.subtitle! {
-                let url = URL(fileURLWithPath: toOpen)
+            if let toOpen = view.annotation?.subtitle {
+                let url = URL(fileURLWithPath: toOpen!)
                 let options = [String: Any]()
                 app.open(url, options: options , completionHandler: nil)
             }

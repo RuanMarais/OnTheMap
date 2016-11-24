@@ -15,6 +15,8 @@ struct Constants {
     struct UIValues {
         static let loginColorTop = UIColor(colorLiteralRed: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0).cgColor
         static let loginColorBottom = UIColor(colorLiteralRed: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0).cgColor
+        static let ColorDark = UIColor(colorLiteralRed: 44.0/255.0, green: 62.0/255.0, blue: 80.0/255.0, alpha: 1.0)
+        static let ColorLight = UIColor(colorLiteralRed: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0)
     }
     
     struct UdacityApiConstants {
@@ -56,7 +58,7 @@ struct Constants {
     
     struct ParseApiQueryValues {
         static let limitNumber = 1000
-        static let ascendingTime = "-updatedAt"
+        static let ascendingTime = "updatedAt"
     }
     
     struct AlertStrings {

@@ -58,7 +58,7 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAc-n9-QXM">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aAc-n9-QXM" customClass="CustomButton" customModule="On_the_Map" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="262" width="343" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="FTM-gU-MDo"/>
@@ -205,10 +205,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nIv-pb-SKM">
-                                <rect key="frame" x="0.0" y="20" width="375" height="54.5"/>
+                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="nIv-pb-SKM">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="54.5"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="barTintColor" red="0.62581437826156616" green="0.78616249561309814" blue="0.92367345094680786" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <items>
-                                    <navigationItem title="New Pin Location" id="dwJ-dh-IOM">
+                                    <navigationItem id="dwJ-dh-IOM">
                                         <barButtonItem key="rightBarButtonItem" systemItem="cancel" id="btw-Bw-hJL">
                                             <connections>
                                                 <action selector="cancelInputPin:" destination="Lde-0b-Ezc" id="6lW-4v-eFj"/>
@@ -223,7 +226,7 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZfX-vU-X6T">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="jgF-FQ-LVb"/>
+                                            <constraint firstAttribute="height" constant="40" id="aPP-kK-S16"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
@@ -232,16 +235,16 @@
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4iU-4h-aur">
                                         <rect key="frame" x="0.0" y="50" width="343" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="x1z-ZN-ySv"/>
+                                            <constraint firstAttribute="height" constant="40" id="ZI0-VF-w21"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bh-nN-KqW">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5bh-nN-KqW" customClass="CustomButton" customModule="On_the_Map" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="100" width="343" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="0Lf-tu-rud"/>
+                                            <constraint firstAttribute="height" constant="40" id="FF4-zF-ca1"/>
                                         </constraints>
                                         <state key="normal" title="View on Map"/>
                                         <connections>
@@ -253,18 +256,14 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="nIv-pb-SKM" firstAttribute="top" secondItem="13y-M0-hfv" secondAttribute="bottom" id="2FC-u4-AoG"/>
-                            <constraint firstAttribute="trailing" secondItem="nIv-pb-SKM" secondAttribute="trailing" id="2g7-oP-9ai"/>
-                            <constraint firstItem="gpF-Bq-to7" firstAttribute="centerY" secondItem="aMs-6I-Zea" secondAttribute="centerY" id="D9x-E3-jew"/>
-                            <constraint firstItem="gpF-Bq-to7" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leadingMargin" id="Jm7-9M-SNi"/>
-                            <constraint firstItem="gpF-Bq-to7" firstAttribute="top" secondItem="nIv-pb-SKM" secondAttribute="bottom" constant="189" id="jmL-wK-ins"/>
-                            <constraint firstItem="gpF-Bq-to7" firstAttribute="trailing" secondItem="aMs-6I-Zea" secondAttribute="trailingMargin" id="oXi-7Q-DDW"/>
-                            <constraint firstItem="nIv-pb-SKM" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leading" id="pFH-xa-zZP"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="centerX" secondItem="aMs-6I-Zea" secondAttribute="centerX" id="H5k-Qn-1YH"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="gpF-Bq-to7" secondAttribute="trailing" id="Is4-mx-Ybp"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="leading" secondItem="aMs-6I-Zea" secondAttribute="leadingMargin" id="avv-6t-FVM"/>
+                            <constraint firstItem="gpF-Bq-to7" firstAttribute="centerY" secondItem="aMs-6I-Zea" secondAttribute="centerY" id="eFo-Bh-bxd"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="navBar" destination="nIv-pb-SKM" id="SQV-e3-qbT"/>
-                        <outlet property="navigationTitle" destination="dwJ-dh-IOM" id="glV-OF-kFj"/>
+                        <outlet property="navBar" destination="nIv-pb-SKM" id="nTG-Jf-zLg"/>
                         <outlet property="pinInputLabel" destination="ZfX-vU-X6T" id="ZsA-d6-7vG"/>
                         <outlet property="pinInputTextfield" destination="4iU-4h-aur" id="Uyo-6L-Rfz"/>
                         <outlet property="showMapButton" destination="5bh-nN-KqW" id="1xh-db-cDa"/>
@@ -286,8 +285,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="EH7-28-8YY">
-                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                            <navigationBar contentMode="scaleToFill" misplaced="YES" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="EH7-28-8YY">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="54.5" id="qnR-38-bGe"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <items>
                                     <navigationItem id="HRV-7E-pV1">
                                         <barButtonItem key="leftBarButtonItem" title="Post Pin" id="Jig-VO-3mE">
@@ -303,54 +306,52 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZnO-1J-caI">
-                                <rect key="frame" x="16" y="64" width="343" height="583"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="ZnO-1J-caI">
+                                <rect key="frame" x="16" y="44" width="343" height="573"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="add a link..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ec5-hg-UMy">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="203"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="132.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="34"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pcJ-jX-wwA">
-                                        <rect key="frame" x="0.0" y="213" width="343" height="80"/>
+                                        <rect key="frame" x="0.0" y="172.5" width="343" height="80"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="80" id="eDu-GL-ph0"/>
+                                            <constraint firstAttribute="height" constant="80" id="f3Y-ac-l9D"/>
                                         </constraints>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="qc9-ny-oQh">
-                                        <rect key="frame" x="0.0" y="303" width="343" height="280"/>
+                                        <rect key="frame" x="0.0" y="292.5" width="343" height="280"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="280" id="SVW-7h-XK6"/>
+                                            <constraint firstAttribute="height" constant="280" id="BCc-gS-nUY"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="delegate" destination="ZQS-Ll-0MR" id="ho3-U2-rBw"/>
                                         </connections>
                                     </mapView>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="583" id="Nie-nm-Old"/>
-                                </constraints>
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="ZnO-1J-caI" firstAttribute="trailing" secondItem="VqI-vd-yIO" secondAttribute="trailingMargin" id="EZ8-si-2Gd"/>
-                            <constraint firstItem="EH7-28-8YY" firstAttribute="top" secondItem="PL0-9F-GQ8" secondAttribute="bottom" id="MgN-CX-19J"/>
-                            <constraint firstItem="CQN-O9-EBa" firstAttribute="top" secondItem="ZnO-1J-caI" secondAttribute="bottom" constant="20" id="QmK-eG-gEs"/>
-                            <constraint firstAttribute="trailing" secondItem="EH7-28-8YY" secondAttribute="trailing" id="aoo-Il-5yo"/>
-                            <constraint firstItem="EH7-28-8YY" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leading" id="fkU-oY-TyA"/>
-                            <constraint firstItem="ZnO-1J-caI" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leadingMargin" id="lfE-54-ZGP"/>
-                            <constraint firstItem="ZnO-1J-caI" firstAttribute="top" secondItem="EH7-28-8YY" secondAttribute="bottom" id="zSx-aO-SAR"/>
+                            <constraint firstAttribute="trailing" secondItem="EH7-28-8YY" secondAttribute="trailing" id="9sq-sE-IiF"/>
+                            <constraint firstItem="ZnO-1J-caI" firstAttribute="top" secondItem="EH7-28-8YY" secondAttribute="bottom" id="BeQ-qG-iIS"/>
+                            <constraint firstItem="ZnO-1J-caI" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leadingMargin" id="Bsm-Q9-SUj"/>
+                            <constraint firstItem="EH7-28-8YY" firstAttribute="top" secondItem="VqI-vd-yIO" secondAttribute="top" id="UUl-DW-nIo"/>
+                            <constraint firstItem="ZnO-1J-caI" firstAttribute="trailing" secondItem="VqI-vd-yIO" secondAttribute="trailingMargin" id="WkI-NP-6tc"/>
+                            <constraint firstItem="EH7-28-8YY" firstAttribute="leading" secondItem="VqI-vd-yIO" secondAttribute="leading" id="gJE-fM-Mxc"/>
+                            <constraint firstItem="CQN-O9-EBa" firstAttribute="top" secondItem="ZnO-1J-caI" secondAttribute="bottom" constant="40" id="ysP-qJ-xlN"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="MapViewLable" destination="Ec5-hg-UMy" id="Vw9-ng-xVx"/>
                         <outlet property="mapView" destination="qc9-ny-oQh" id="rVe-xw-bZ2"/>
                         <outlet property="mediaLinkTextfield" destination="pcJ-jX-wwA" id="irg-FC-2eA"/>
+                        <outlet property="navBar" destination="EH7-28-8YY" id="olq-VW-Ekl"/>
                         <outlet property="postPin" destination="Jig-VO-3mE" id="6dn-CK-ugr"/>
                     </connections>
                 </viewController>
