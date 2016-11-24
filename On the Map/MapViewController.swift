@@ -16,19 +16,25 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var appDelegate: AppDelegate!
     var studentLocations = [StudentLocation]()
     var alert: UIAlertController?
+    var alertNetwork: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        alertNetwork = UIAlertController(title: Constants.AlertNetwork.failed, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
         alert = UIAlertController(title: Constants.AlertStrings.title, message: Constants.AlertStrings.body, preferredStyle: .alert)
+        
+        let networkFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel, handler: nil)
         let replaceAction = UIAlertAction(title: Constants.AlertStrings.replace, style: .default){(parameter) in
             self.presentPinInputController(pinReplace: true)
         }
         let noReplaceAction = UIAlertAction(title: Constants.AlertStrings.noReplace, style: .default){(parameter) in
             self.presentPinInputController(pinReplace: false)
         }
+        
         alert?.addAction(replaceAction)
         alert?.addAction(noReplaceAction)
+        alertNetwork?.addAction(networkFail)
         
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         populateMap()
@@ -105,10 +111,21 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView, calloutAccessoryControlTapped control: UIControl) {
         if control == view.rightCalloutAccessoryView {
             let app = UIApplication.shared
+            var url: URL?
+            let options = [String: Any]()
+            
             if let toOpen = view.annotation?.subtitle {
-                let url = URL(fileURLWithPath: toOpen!)
-                let options = [String: Any]()
-                app.open(url, options: options , completionHandler: nil)
+                if (toOpen?.contains("http"))! {
+                    url = URL(string: toOpen!)
+                } else {
+                    url = URL(string: "https://" + toOpen!)
+                }
+            }
+            
+            if let urlFound = url {
+                performUIUpdatesOnMain {
+                    app.open(urlFound, options: options , completionHandler: nil)
+                }
             }
         }
     }
@@ -176,6 +193,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                     self.mapOutlet.addAnnotations(self.annotations)
                     
                 } else {
+                    self.present(self.alertNetwork!, animated: true, completion: nil)
                     print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
                 }
             }

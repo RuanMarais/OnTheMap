@@ -37,18 +37,16 @@ class NewPinInputViewController: UIViewController {
         self.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func showPinMap(_ sender: Any) {
+    @IBAction func showPinOnMap(_ sender: Any) {
         
         showMapButton.isEnabled = false
         userDidTapView(sender: self)
-       
+        
         if (!pinInputTextfield.text!.isEmpty) {
             geoCodeDataAndSegue(locationString: pinInputTextfield.text!)
         } else {
             showMapButton.isEnabled = true
-
         }
-        
     }
 }
 

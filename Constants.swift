@@ -19,6 +19,10 @@ struct Constants {
         static let ColorLight = UIColor(colorLiteralRed: 52.0/255.0, green: 152.0/255.0, blue: 219.0/255.0, alpha: 1.0)
     }
     
+    struct signUp {
+        static let udacitySignUp = "https://www.udacity.com/account/auth#!/signup"
+    }
+    
     struct UdacityApiConstants {
         static let ApiScheme = "https"
         static let ApiHost = "www.udacity.com"
@@ -78,6 +82,25 @@ struct Constants {
         static let noLinkPrompt = "Do you wish to continue without adding a media link to your pin"
         static let continueNoLink = "Continue"
         static let addLink = "Add Link"
+    }
+    
+    struct AlertLogin {
+        static let failed = "Login failed"
+        static let connectionAbsent = "Please check your internet connection and try again"
+        static let incorrectDetails = "Please check your username/password"
+        static let retryLogin = "Retry"
+    }
+    
+    struct AlertNetwork {
+        static let failed = "Could not retrieve pins"
+        static let connection = "Please check your internet connection and try again"
+        static let accept = "Accept"
+    }
+    
+    struct AlertUrl {
+        static let failed = "Could not open link"
+        static let message = "Please check your internet connection or try another link"
+        static let accept = "Accept"
     }
     
     

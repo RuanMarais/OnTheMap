@@ -15,10 +15,11 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var loginButton: UIButton!
     @IBOutlet weak var usernameTextField: UITextField!
     @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var debugLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
-    var appDelegate: AppDelegate!
     
+    var appDelegate: AppDelegate!
+    var alertConnection: UIAlertController?
+    var alertAccountDetails: UIAlertController?
     var keyboardOnScreen = false
     
     override func viewDidLoad() {
@@ -28,6 +29,21 @@ class LoginViewController: UIViewController {
         subscribeKeyboardNotifications()
         self.resignFirstResponderWhenTapped()
         appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        //controllers for failed network connection
+        
+        alertConnection = UIAlertController(title: Constants.AlertLogin.failed , message: Constants.AlertLogin.connectionAbsent, preferredStyle: .alert)
+        alertAccountDetails = UIAlertController(title: Constants.AlertLogin.failed, message: Constants.AlertLogin.incorrectDetails, preferredStyle: .alert)
+        
+        let NoNetwork = UIAlertAction(title: Constants.AlertLogin.retryLogin, style: .cancel){(parameter) in
+            self.setUIEnabled(enabled: true)
+        }
+        let incorrectLogin = UIAlertAction(title: Constants.AlertLogin.retryLogin, style: .cancel){(parameter) in
+            self.setUIEnabled(enabled: true)
+        }
+        
+        alertConnection?.addAction(NoNetwork)
+        alertAccountDetails?.addAction(incorrectLogin)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -40,7 +56,7 @@ class LoginViewController: UIViewController {
         userDidTapView(sender: self)
         
         if usernameTextField.text!.isEmpty || passwordTextField.text!.isEmpty {
-            debugLabel.text = "Username or Password Empty."
+            self.present(alertAccountDetails!, animated: true, completion: nil)
         } else {
             setUIEnabled(enabled: false)
             UdacityClient.sharedInstance().getSessionAndUserID(username: usernameTextField.text!, password: passwordTextField.text!){(success, error) in
@@ -48,27 +64,38 @@ class LoginViewController: UIViewController {
                     if success {
                         self.completeLogin()
                     } else {
-                        self.debugLabel.text = "Login failed"
                         
-                        self.setUIEnabled(enabled: true)
+                        if (error?.userInfo[NSLocalizedDescriptionKey] as! String == "Status code not 2xx") {
+                            self.present(self.alertAccountDetails!, animated: true, completion: nil)
+                        } else {
+                            self.present(self.alertConnection!, animated: true, completion: nil)
+                        }
+                        
                     }
                 }
             }
         }
     }
        
+    @IBAction func signUpUdacity(_ sender: Any) {
+        
+        let url = URL(string: Constants.signUp.udacitySignUp)!
+        performUIUpdatesOnMain {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+        }
+    }
+    
     func completeLogin() {
         
         let student = self.appDelegate.student
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
-        debugLabel.text = ""
         
         UdacityClient.sharedInstance().getUdacityStudentDetails(student: student!) {(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.present(controller, animated: true, completion: nil)
                 } else {
-                    self.debugLabel.text = "Login failed"
+                    
                     print(error?.userInfo[NSLocalizedDescriptionKey] as! String)
                 }
             }
@@ -95,6 +122,7 @@ extension LoginViewController {
         textField.leftViewMode = .always
         
         textField.attributedPlaceholder = NSAttributedString(string: textField.placeholder!, attributes: [NSForegroundColorAttributeName: UIColor.lightGray])
+        textField.autocorrectionType = UITextAutocorrectionType.no
         
         textField.delegate = self
     }
@@ -103,10 +131,7 @@ extension LoginViewController {
         usernameTextField.isEnabled = enabled
         passwordTextField.isEnabled = enabled
         loginButton.isEnabled = enabled
-        debugLabel.text = ""
-        debugLabel.isEnabled = enabled
-
-       
+        
         if enabled {
             loginButton.alpha = 1.0
         } else {
@@ -174,7 +199,6 @@ extension LoginViewController: UITextFieldDelegate {
         resignIfFirstResponder(textField: usernameTextField)
         resignIfFirstResponder(textField: passwordTextField)
     }
-    
 }
 
 // Subscbribe to notifications to allow for keyboard
