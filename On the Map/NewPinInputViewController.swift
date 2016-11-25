@@ -19,7 +19,7 @@ class NewPinInputViewController: UIViewController {
     @IBOutlet weak var navBar: UINavigationBar!
     var replace: Bool = false
     var keyboardOnScreen = false
-    var appDelegate: AppDelegate!
+   
     var alert: UIAlertController?
     
     override func viewDidLoad() {
@@ -32,7 +32,6 @@ class NewPinInputViewController: UIViewController {
         
         alert?.addAction(networkFail)
         
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
         configureUI()
         subscribeKeyboardNotifications()
         resignFirstResponderWhenTapped()
@@ -163,7 +162,7 @@ extension NewPinInputViewController {
     }
     
     func presentPinMapController(pinReplace: Bool) {
-        print("called")
+        self.dismiss(animated: true, completion: nil)
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "newPinMap") as! NewPinMapViewViewController
         controller.replace = pinReplace
         self.present(controller, animated: true, completion: nil)
@@ -201,11 +200,12 @@ extension NewPinInputViewController {
                 if ((placemarks?.count)! > 0) {
                     let top: CLPlacemark = (placemarks?[0])!
                     let placemark: MKPlacemark = MKPlacemark(placemark: top)
-                    self.appDelegate.placemark = placemark
                     
-                    self.appDelegate.student?.mapString = locationString
-                    self.appDelegate.student?.latitude = placemark.coordinate.latitude.binade
-                    self.appDelegate.student?.longitude = placemark.coordinate.longitude.binade
+                    DataStorage.sharedInstance.placemark = placemark
+                    DataStorage.sharedInstance.ownStudent.studentLocationInfo["mapString"] = locationString as AnyObject?
+                    DataStorage.sharedInstance.ownStudent.studentLocationInfo["latitude"] = placemark.coordinate.latitude.binade as AnyObject?
+                    DataStorage.sharedInstance.ownStudent.studentLocationInfo["longitude"] = placemark.coordinate.longitude.binade as AnyObject?
+
                     self.presentPinMapController(pinReplace: self.replace)
                     
                 } else {

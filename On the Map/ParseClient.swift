@@ -11,21 +11,18 @@ import UIKit
 
 class ParseClient: NSObject {
     
-    var appDelegate: AppDelegate!
     static let sharedInstance = ParseClient()
     
     // MARK: class initialiser
     
     override init() {
         super.init()
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     func taskForGETMethod(method: String?, parameters: [String:AnyObject],completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // parameters for URL
         var parameters = parameters
-        //let session = appDelegate.session
         let session = DataStorage.sharedInstance.session
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
@@ -73,8 +70,8 @@ class ParseClient: NSObject {
         
         // parameters for URL
         var parameters = parameters
-        //let session = appDelegate.session
         let session = DataStorage.sharedInstance.session
+        
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
         request.httpMethod = requestType

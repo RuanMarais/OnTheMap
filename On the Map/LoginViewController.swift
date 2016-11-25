@@ -17,7 +17,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var passwordTextField: UITextField!
     @IBOutlet weak var titleLabel: UILabel!
     
-    var appDelegate: AppDelegate!
     var alertConnection: UIAlertController?
     var alertAccountDetails: UIAlertController?
     var keyboardOnScreen = false
@@ -27,8 +26,7 @@ class LoginViewController: UIViewController {
         
         configureUI()
         subscribeKeyboardNotifications()
-        self.resignFirstResponderWhenTapped()
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        resignFirstResponderWhenTapped()
         
         //controllers for failed network connection
         
@@ -44,6 +42,13 @@ class LoginViewController: UIViewController {
         
         alertConnection?.addAction(NoNetwork)
         alertAccountDetails?.addAction(incorrectLogin)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setUIEnabled(enabled: true)
+        usernameTextField.text = ""
+        passwordTextField.text = ""
     }
 
     override func viewWillDisappear(_ animated: Bool) {
@@ -86,10 +91,9 @@ class LoginViewController: UIViewController {
     
     func completeLogin() {
         
-        let student = self.appDelegate.student
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         
-        UdacityClient.sharedInstance.getUdacityStudentDetails(student: student!) {(success, error) in
+        UdacityClient.sharedInstance.getUdacityStudentDetails() {(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.present(controller, animated: true, completion: nil)

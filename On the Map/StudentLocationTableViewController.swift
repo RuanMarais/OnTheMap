@@ -10,8 +10,6 @@ import UIKit
 
 class StudentLocationTableViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    var appDelegate: AppDelegate!
-    var studentLocations = [StudentLocation]()
     @IBOutlet weak var studentLocationsTableView: UITableView!
     var alertNetwork: UIAlertController?
     var alertURL: UIAlertController?
@@ -39,10 +37,8 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         alertURL?.addAction(UrlFail)
         alert?.addAction(replaceAction)
         alert?.addAction(noReplaceAction)
-        alert?.addAction(logoutFail)
+        alertLogout?.addAction(logoutFail)
 
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
-        studentLocations = self.appDelegate.studentLocationDataStructArray
         retrieveDataReloadTable()
         
     }
@@ -74,10 +70,10 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         let app = UIApplication.shared
         var url: URL?
         let options = [String: Any]()
-        let studentLocationArrayItem = studentLocations[indexPath.row]
+        let studentLocationArrayItem = DataStorage.sharedInstance.studentLocationDataStructArray[indexPath.row]
 
         
-        if let toOpen = studentLocationArrayItem.mediaUrl {
+        if let toOpen = studentLocationArrayItem.studentLocationInfo["mediaURL"] as? String {
             if (toOpen.contains("http")) {
                 url = URL(string: toOpen)
             } else {
@@ -111,26 +107,26 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return appDelegate.studentLocationDataStructArray.count
+        return DataStorage.sharedInstance.studentLocationDataStructArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cellReuseidentifier = "BasicCellLocationPin"
-        let studentLocationArrayItem = studentLocations[indexPath.row]
+        let studentLocationArrayItem = DataStorage.sharedInstance.studentLocationDataStructArray[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: cellReuseidentifier) as UITableViewCell!
         
         var firstName: String
         var lastName: String
         
-        if let name = studentLocationArrayItem.firstName {
-            firstName = name
+        if let name = studentLocationArrayItem.studentLocationInfo["firstName"] {
+            firstName = name as! String
         } else {
             firstName = "Unknown"
         }
         
-        if let last = studentLocationArrayItem.lastName {
-            lastName = last
+        if let last = studentLocationArrayItem.studentLocationInfo["lastName"] {
+            lastName = last as! String
         } else {
             lastName = "Unknown"
         }
@@ -144,7 +140,6 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         ParseClient.sharedInstance.populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
             performUIUpdatesOnMain {
                 if success {
-                    self.studentLocations = self.appDelegate.studentLocationDataStructArray
                     self.studentLocationsTableView!.reloadData()
                 } else {
                     self.present(self.alertNetwork!, animated: true, completion: nil)

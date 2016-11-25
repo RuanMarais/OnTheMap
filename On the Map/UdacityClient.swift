@@ -11,23 +11,20 @@ import UIKit
 
 class UdacityClient: NSObject {
 
-    var appDelegate: AppDelegate!
     static let sharedInstance = UdacityClient()
     
     // MARK: class initialiser 
     
     override init() {
         super.init()
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
     }
     
     func taskForGETMethod(method: String, parameters: [String:AnyObject], completionHandlerForGET: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
         
         // Base parameter dictionary
         var parameters = parameters
-        // let session = appDelegate.session
         let session = DataStorage.sharedInstance.session
+        
         // request from URL
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: method))
         
@@ -72,7 +69,7 @@ class UdacityClient: NSObject {
         // parameters for URL
         var parameters = parameters
         let session = DataStorage.sharedInstance.session
-        //let session = appDelegate.session
+        
         // url and request
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: method))
         request.httpMethod = "POST"

@@ -45,22 +45,18 @@ extension UdacityClient {
                 return
             }
             
-            guard let parsedSessionID = sessionDictionary[Constants.UdacityResponseKeys.sessionID] as? String else {
+            guard (sessionDictionary[Constants.UdacityResponseKeys.sessionID] as? String) != nil else {
                 completionHandlerForID(false, NSError(domain: "Udacity Auth parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Udacity Auth result"]))
                 return
             }
             
             DataStorage.sharedInstance.ownStudent.studentLocationInfo["uniqueKey"] = parsedUserID as AnyObject?
             
-            self.appDelegate.sessionID = parsedSessionID
-            self.appDelegate.userID = parsedUserID
-            self.appDelegate.student = StudentLocation(firstName: nil, objectId: nil, uniqueKey: parsedUserID, lastName: nil, mapString: nil, mediaUrl: nil, latitude: nil, longitude: nil)
-            
             completionHandlerForID(true, nil)
         }
     }
     
-    func getUdacityStudentDetails(student: StudentLocation, completionHandlerForStudentDetails: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
+    func getUdacityStudentDetails(completionHandlerForStudentDetails: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
         // let userId = student.uniqueKey
         let userId = DataStorage.sharedInstance.ownStudent.studentLocationInfo["uniqueKey"] as? String
@@ -91,8 +87,7 @@ extension UdacityClient {
             
             DataStorage.sharedInstance.ownStudent.studentLocationInfo["firstName"] = firstName as AnyObject?
             DataStorage.sharedInstance.ownStudent.studentLocationInfo["lastName"] = lastName as AnyObject?
-            self.appDelegate.student?.firstName = firstName
-            self.appDelegate.student?.lastName = lastName
+            
             completionHandlerForStudentDetails(true, nil)
 
         }

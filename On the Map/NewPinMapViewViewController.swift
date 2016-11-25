@@ -18,16 +18,16 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
     @IBOutlet weak var navBar: UINavigationBar!
     
     var replace = false
-    var appDelegate: AppDelegate!
+    
     var keyboardOnScreen = false
     var keyboardRequiredShift = false
+    
     var alert: UIAlertController?
     var alertNetwork: UIAlertController?
     
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        appDelegate = UIApplication.shared.delegate as! AppDelegate
         configureUI()
         subscribeKeyboardNotifications()
         resignFirstResponderWhenTapped()
@@ -36,7 +36,7 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
         alertNetwork = UIAlertController(title: Constants.AlertNetwork.failedPost, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
         
         let continueNoLink = UIAlertAction(title: Constants.PostingAlerts.continueNoLink, style: .default){(parameter) in
-            self.appDelegate.student?.mediaUrl = ""
+            DataStorage.sharedInstance.ownStudent.studentLocationInfo["mediaURL"] = "" as AnyObject?
             self.postPinNetwork()
         }
         let addLink = UIAlertAction(title: Constants.PostingAlerts.addLink, style: .cancel){(parameter) in
@@ -54,16 +54,16 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
 
     override func viewWillAppear(_ animated: Bool) {
         var region: MKCoordinateRegion = self.mapView.region
-        region.center = (appDelegate.placemark?.coordinate)!
+        region.center = (DataStorage.sharedInstance.placemark?.coordinate)!
         region.span.longitudeDelta /= 8.0
         region.span.latitudeDelta /= 8.0
         self.mapView.setRegion(region, animated: true)
-        self.mapView.addAnnotation(appDelegate.placemark!)
+        self.mapView.addAnnotation(DataStorage.sharedInstance.placemark!)
     }
 
     @IBAction func cancelPin(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
-        self.appDelegate.placemark = nil
+        DataStorage.sharedInstance.placemark = nil
     }
     
     @IBAction func postPin(_ sender: Any) {
@@ -74,7 +74,7 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
         if mediaLinkTextfield.text!.isEmpty {
             self.present(self.alert!, animated: true, completion: nil)
         } else {
-            appDelegate.student?.mediaUrl = mediaLinkTextfield.text
+            DataStorage.sharedInstance.ownStudent.studentLocationInfo["mediaURL"] = mediaLinkTextfield.text as AnyObject?
             postPinNetwork()
         }
     }
@@ -223,7 +223,7 @@ extension NewPinMapViewViewController {
 
     func postPinNetwork() {
         
-        ParseClient.sharedInstance.postPin(replace: replace, student: appDelegate.student!){(success, error) in
+        ParseClient.sharedInstance.postPin(replace: replace, student: DataStorage.sharedInstance.ownStudent){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.presentMapController()
@@ -235,6 +235,7 @@ extension NewPinMapViewViewController {
     }
     
     func presentMapController() {
+        self.dismiss(animated: true, completion: nil)
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         
         self.present(controller, animated: true, completion: nil)
