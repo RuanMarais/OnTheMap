@@ -26,7 +26,7 @@
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="lC8-Ee-Whe">
                                 <rect key="frame" x="16" y="120" width="343" height="527"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIcon" translatesAutoresizingMaskIntoConstraints="NO" id="wyf-r6-d13">
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AppIconMain" translatesAutoresizingMaskIntoConstraints="NO" id="wyf-r6-d13">
                                         <rect key="frame" x="0.0" y="0.0" width="343" height="100"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="100" id="gXk-KE-dSw"/>
@@ -448,7 +448,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="AppIcon" width="256" height="256"/>
+        <image name="AppIconMain" width="256" height="256"/>
         <image name="List" width="32" height="32"/>
         <image name="Map" width="32" height="32"/>
         <image name="Pin" width="32" height="32"/>
