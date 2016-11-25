@@ -41,8 +41,8 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         alert?.addAction(noReplaceAction)
         alert?.addAction(logoutFail)
 
-        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.studentLocations = self.appDelegate.studentLocationDataStructArray
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
+        studentLocations = self.appDelegate.studentLocationDataStructArray
         retrieveDataReloadTable()
         
     }
@@ -58,7 +58,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     
     @IBAction func logout(_ sender: Any) {
         
-        UdacityClient.sharedInstance().attemptLogout(){(success, error) in
+        UdacityClient.sharedInstance.attemptLogout(){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.presentLoginController()
@@ -98,7 +98,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     
     @IBAction func postPin(_ sender: Any) {
         
-        ParseClient.sharedInstance().checkPinPresent(){(success, error) in
+        ParseClient.sharedInstance.checkPinPresent(){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.present(self.alert!, animated: true, completion: nil)
@@ -141,7 +141,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     }
     
     func retrieveDataReloadTable() {
-        ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
+        ParseClient.sharedInstance.populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.studentLocations = self.appDelegate.studentLocationDataStructArray

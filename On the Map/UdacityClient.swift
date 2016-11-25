@@ -12,6 +12,7 @@ import UIKit
 class UdacityClient: NSObject {
 
     var appDelegate: AppDelegate!
+    static let sharedInstance = UdacityClient()
     
     // MARK: class initialiser 
     
@@ -25,7 +26,8 @@ class UdacityClient: NSObject {
         
         // Base parameter dictionary
         var parameters = parameters
-        let session = appDelegate.session
+        // let session = appDelegate.session
+        let session = DataStorage.sharedInstance.session
         // request from URL
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: method))
         
@@ -69,7 +71,8 @@ class UdacityClient: NSObject {
         
         // parameters for URL
         var parameters = parameters
-        let session = appDelegate.session
+        let session = DataStorage.sharedInstance.session
+        //let session = appDelegate.session
         // url and request
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: method))
         request.httpMethod = "POST"
@@ -119,7 +122,8 @@ class UdacityClient: NSObject {
         
         // parameters for URL
         var parameters = [String: AnyObject]()
-        let session = appDelegate.session
+        //let session = appDelegate.session
+        let session = DataStorage.sharedInstance.session
         // url and request
         let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: Constants.UdacityApiMethods.sessionID))
         request.httpMethod = "DELETE"
@@ -205,13 +209,5 @@ class UdacityClient: NSObject {
         
         completionHandlerForConvertData(parsedResult as AnyObject!, nil)
     }
-    
-    class func sharedInstance() -> UdacityClient {
-        struct Singleton {
-            static var sharedInstance = UdacityClient()
-        }
-        return Singleton.sharedInstance
-    }
-
     
 }

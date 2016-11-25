@@ -82,7 +82,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func logout(_ sender: Any) {
         
-        UdacityClient.sharedInstance().attemptLogout(){(success, error) in
+        UdacityClient.sharedInstance.attemptLogout(){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.presentLoginController()
@@ -95,7 +95,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func newPin(_ sender: Any) {
         
-        ParseClient.sharedInstance().checkPinPresent(){(success, error) in
+        ParseClient.sharedInstance.checkPinPresent(){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.present(self.alert!, animated: true, completion: nil)
@@ -149,12 +149,60 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     func populateMap() {
         
-        ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
+        ParseClient.sharedInstance.populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
             performUIUpdatesOnMain {
                 if success {
-                    self.studentLocations = self.appDelegate.studentLocationDataStructArray
+                    //self.studentLocations = self.appDelegate.studentLocationDataStructArray
                     
-                    for student in self.studentLocations {
+                    for student in DataStorage.sharedInstance.studentLocationDataStructArray {
+                        
+                        var studentLatitude: CLLocationDegrees
+                        var studentLongitude: CLLocationDegrees
+                        var first: String
+                        var last: String
+                        var mediaURL: String
+                        
+                        if let lat = student.studentLocationInfo["latitude"] {
+                            studentLatitude = CLLocationDegrees(lat as! Float)
+                        } else {
+                            continue
+                        }
+                        
+                        if let long = student.studentLocationInfo["longitude"] {
+                            studentLongitude = CLLocationDegrees(long as! Float)
+                        } else {
+                            continue
+                        }
+                        
+                        if let firstName = student.studentLocationInfo["firstName"] {
+                            first = firstName as! String
+                        } else {
+                            continue
+                        }
+                        
+                        if let lastName = student.studentLocationInfo["lastName"] {
+                            last = lastName as! String
+                        } else {
+                            continue
+                        }
+                        
+                        if let media = student.studentLocationInfo["mediaURL"] {
+                            mediaURL = media as! String
+                        } else {
+                            continue
+                        }
+                        
+                        // The lat and long are used to create a CLLocationCoordinates2D instance.
+                        let coordinate = CLLocationCoordinate2D(latitude: studentLatitude, longitude: studentLongitude)
+                        let annotation = MKPointAnnotation()
+                        annotation.coordinate = coordinate
+                        annotation.title = "\(first) \(last)"
+                        annotation.subtitle = mediaURL
+                        
+                        self.annotations.append(annotation)
+                    }
+                    
+                   /* for student in self.studentLocations {
                         
                         var studentLatitude: CLLocationDegrees
                         var studentLongitude: CLLocationDegrees
@@ -201,6 +249,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                         
                         self.annotations.append(annotation)
                     }
+ */
                     self.mapOutlet.addAnnotations(self.annotations)
                     
                 } else {

@@ -59,7 +59,7 @@ class LoginViewController: UIViewController {
             self.present(alertAccountDetails!, animated: true, completion: nil)
         } else {
             setUIEnabled(enabled: false)
-            UdacityClient.sharedInstance().getSessionAndUserID(username: usernameTextField.text!, password: passwordTextField.text!){(success, error) in
+            UdacityClient.sharedInstance.getSessionAndUserID(username: usernameTextField.text!, password: passwordTextField.text!){(success, error) in
                 performUIUpdatesOnMain {
                     if success {
                         self.completeLogin()
@@ -70,7 +70,6 @@ class LoginViewController: UIViewController {
                         } else {
                             self.present(self.alertConnection!, animated: true, completion: nil)
                         }
-                        
                     }
                 }
             }
@@ -90,7 +89,7 @@ class LoginViewController: UIViewController {
         let student = self.appDelegate.student
         let controller = storyboard!.instantiateViewController(withIdentifier: "TabBarController") as! UITabBarController
         
-        UdacityClient.sharedInstance().getUdacityStudentDetails(student: student!) {(success, error) in
+        UdacityClient.sharedInstance.getUdacityStudentDetails(student: student!) {(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.present(controller, animated: true, completion: nil)

@@ -33,9 +33,9 @@ class NewPinInputViewController: UIViewController {
         alert?.addAction(networkFail)
         
         appDelegate = UIApplication.shared.delegate as! AppDelegate
-        self.configureUI()
+        configureUI()
         subscribeKeyboardNotifications()
-        self.resignFirstResponderWhenTapped()
+        resignFirstResponderWhenTapped()
     }
     
     override func viewWillAppear(_ animated: Bool) {

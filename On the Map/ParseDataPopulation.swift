@@ -12,6 +12,7 @@ extension ParseClient {
     
     func populateStudentLocationStructArray(limitResults: Int, completionHandlerForParse: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
+        DataStorage.sharedInstance.studentLocationDataStructArray.removeAll()
         self.appDelegate.studentLocationDataStructArray.removeAll()
         var parameters = [String: AnyObject]()
         parameters[Constants.ParseApiQueryKeys.limit] = "\(limitResults)" as AnyObject?
@@ -31,6 +32,11 @@ extension ParseClient {
             
             for student in resultsArray {
                 
+                let newStudent = StudentLocationData(studentLocationDictionary: student as [String: AnyObject?])
+                DataStorage.sharedInstance.studentLocationDataStructArray.append(newStudent)
+                print(newStudent)
+                
+                
                 var firstName: String?
                 var lastName: String?
                 var objectId: String?
@@ -42,6 +48,7 @@ extension ParseClient {
                 
                 if let nameFirst = student["firstName"] as? String {
                     firstName = nameFirst
+                    
                 } else {
                     firstName = nil
                 }
@@ -100,6 +107,7 @@ extension ParseClient {
         
         let parameters = [String: AnyObject]()
         let student = student
+        
         let jsonBody = "{\"uniqueKey\": \"\(student.uniqueKey!)\", \"firstName\": \"\(student.firstName!)\", \"lastName\": \"\(student.lastName!)\",\"mapString\": \"\(student.mapString!)\", \"mediaURL\": \"\(student.mediaUrl!)\",\"latitude\": \(student.latitude!), \"longitude\": \(student.longitude!)}"
         
         if !replace {

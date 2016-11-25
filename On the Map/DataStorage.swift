@@ -7,11 +7,15 @@
 //
 
 import Foundation
+import MapKit
 
 class DataStorage: NSObject {
     
-    var studentLocationDataStructArray = [StudentLocation]()
+    var studentLocationDataStructArray = [StudentLocationData]()
+    var ownStudent = StudentLocationData(studentLocationDictionary: [:])
+    var session = URLSession.shared
     static let sharedInstance = DataStorage()
+    var placemark: MKPlacemark? = nil
     
     override init() {
         super.init()

@@ -50,6 +50,8 @@ extension UdacityClient {
                 return
             }
             
+            DataStorage.sharedInstance.ownStudent.studentLocationInfo["uniqueKey"] = parsedUserID as AnyObject?
+            
             self.appDelegate.sessionID = parsedSessionID
             self.appDelegate.userID = parsedUserID
             self.appDelegate.student = StudentLocation(firstName: nil, objectId: nil, uniqueKey: parsedUserID, lastName: nil, mapString: nil, mediaUrl: nil, latitude: nil, longitude: nil)
@@ -60,7 +62,8 @@ extension UdacityClient {
     
     func getUdacityStudentDetails(student: StudentLocation, completionHandlerForStudentDetails: @escaping (_ success: Bool, _ error: NSError?) -> Void) {
         
-        let userId = student.uniqueKey
+        // let userId = student.uniqueKey
+        let userId = DataStorage.sharedInstance.ownStudent.studentLocationInfo["uniqueKey"] as? String
         let parameters = [String: AnyObject]()
         let userMethod = Constants.UdacityApiMethods.userDetails + userId!
         
@@ -86,6 +89,8 @@ extension UdacityClient {
                 return
             }
             
+            DataStorage.sharedInstance.ownStudent.studentLocationInfo["firstName"] = firstName as AnyObject?
+            DataStorage.sharedInstance.ownStudent.studentLocationInfo["lastName"] = lastName as AnyObject?
             self.appDelegate.student?.firstName = firstName
             self.appDelegate.student?.lastName = lastName
             completionHandlerForStudentDetails(true, nil)

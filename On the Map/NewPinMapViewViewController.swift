@@ -27,10 +27,10 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
     override func viewDidLoad() {
         
         super.viewDidLoad()
-        self.appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate = UIApplication.shared.delegate as! AppDelegate
         configureUI()
         subscribeKeyboardNotifications()
-        self.resignFirstResponderWhenTapped()
+        resignFirstResponderWhenTapped()
         
         alert = UIAlertController(title: Constants.PostingAlerts.noLinkTitle , message: Constants.PostingAlerts.noLinkPrompt, preferredStyle: .alert)
         alertNetwork = UIAlertController(title: Constants.AlertNetwork.failedPost, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
@@ -223,7 +223,7 @@ extension NewPinMapViewViewController {
 
     func postPinNetwork() {
         
-        ParseClient.sharedInstance().postPin(replace: replace, student: appDelegate.student!){(success, error) in
+        ParseClient.sharedInstance.postPin(replace: replace, student: appDelegate.student!){(success, error) in
             performUIUpdatesOnMain {
                 if success {
                     self.presentMapController()

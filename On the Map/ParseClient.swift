@@ -12,6 +12,7 @@ import UIKit
 class ParseClient: NSObject {
     
     var appDelegate: AppDelegate!
+    static let sharedInstance = ParseClient()
     
     // MARK: class initialiser
     
@@ -24,7 +25,8 @@ class ParseClient: NSObject {
         
         // parameters for URL
         var parameters = parameters
-        let session = appDelegate.session
+        //let session = appDelegate.session
+        let session = DataStorage.sharedInstance.session
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
         
@@ -71,7 +73,8 @@ class ParseClient: NSObject {
         
         // parameters for URL
         var parameters = parameters
-        let session = appDelegate.session
+        //let session = appDelegate.session
+        let session = DataStorage.sharedInstance.session
         // url and request
         let request = NSMutableURLRequest(url: ParseURLFromParameters(parameters: parameters, withPathExtension: method))
         request.httpMethod = requestType
@@ -145,13 +148,5 @@ class ParseClient: NSObject {
         
         completionHandlerForConvertData(parsedResult as AnyObject!, nil)
     }
-    
-    class func sharedInstance() -> ParseClient {
-        struct Singleton {
-            static var sharedInstance = ParseClient()
-        }
-        return Singleton.sharedInstance
-    }
-    
     
 }
