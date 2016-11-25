@@ -22,6 +22,7 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
     var keyboardOnScreen = false
     var keyboardRequiredShift = false
     var alert: UIAlertController?
+    var alertNetwork: UIAlertController?
     
     override func viewDidLoad() {
         
@@ -32,6 +33,7 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
         self.resignFirstResponderWhenTapped()
         
         alert = UIAlertController(title: Constants.PostingAlerts.noLinkTitle , message: Constants.PostingAlerts.noLinkPrompt, preferredStyle: .alert)
+        alertNetwork = UIAlertController(title: Constants.AlertNetwork.failedPost, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
         
         let continueNoLink = UIAlertAction(title: Constants.PostingAlerts.continueNoLink, style: .default){(parameter) in
             self.appDelegate.student?.mediaUrl = ""
@@ -39,11 +41,14 @@ class NewPinMapViewViewController: UIViewController, MKMapViewDelegate{
         }
         let addLink = UIAlertAction(title: Constants.PostingAlerts.addLink, style: .cancel){(parameter) in
             self.setUIEnabled(enabled: true)
-        
         }
-
+        let networkFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel){(parameter) in
+            self.setUIEnabled(enabled: true)
+        }
+        
         alert?.addAction(continueNoLink)
         alert?.addAction(addLink)
+        alertNetwork?.addAction(networkFail)
         
     }
 
@@ -211,9 +216,7 @@ extension NewPinMapViewViewController {
         } else {
             MapViewLable.text = "Loading..."
         }
-       
     }
-    
 }
 
 extension NewPinMapViewViewController {
@@ -225,7 +228,7 @@ extension NewPinMapViewViewController {
                 if success {
                     self.presentMapController()
                 } else {
-                    self.setUIEnabled(enabled: true)
+                    self.present(self.alertNetwork!, animated: true, completion: nil)
                 }
             }
         }

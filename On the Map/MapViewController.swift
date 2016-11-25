@@ -17,12 +17,14 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     var studentLocations = [StudentLocation]()
     var alert: UIAlertController?
     var alertNetwork: UIAlertController?
-    
+    var alertLogout: UIAlertController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
         alertNetwork = UIAlertController(title: Constants.AlertNetwork.failed, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
         alert = UIAlertController(title: Constants.AlertStrings.title, message: Constants.AlertStrings.body, preferredStyle: .alert)
+        alertLogout = UIAlertController(title: Constants.AlertNetwork.failedLogout, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
         
         let networkFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel, handler: nil)
         let replaceAction = UIAlertAction(title: Constants.AlertStrings.replace, style: .default){(parameter) in
@@ -31,10 +33,12 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         let noReplaceAction = UIAlertAction(title: Constants.AlertStrings.noReplace, style: .default){(parameter) in
             self.presentPinInputController(pinReplace: false)
         }
+        let logoutFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel, handler: nil)
         
         alert?.addAction(replaceAction)
         alert?.addAction(noReplaceAction)
         alertNetwork?.addAction(networkFail)
+        alert?.addAction(logoutFail)
         
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         populateMap()
@@ -74,6 +78,19 @@ class MapViewController: UIViewController, MKMapViewDelegate {
     
     @IBAction func refreshMap(_ sender: Any) {
         populateMap()
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().attemptLogout(){(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.presentLoginController()
+                } else {
+                    self.present(self.alertLogout!, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     @IBAction func newPin(_ sender: Any) {
@@ -199,6 +216,11 @@ class MapViewController: UIViewController, MKMapViewDelegate {
             }
         }
 
+    }
+    
+    func presentLoginController() {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "login") as! LoginViewController
+        self.present(controller, animated: true, completion: nil)
     }
 }
 

@@ -113,6 +113,63 @@ class UdacityClient: NSObject {
         task.resume()
         
     }
+    
+    //logout method
+    func taskForDELETEMethod(completionHandlerForDELETE: @escaping (_ result: AnyObject?, _ error: NSError?) -> Void) {
+        
+        // parameters for URL
+        var parameters = [String: AnyObject]()
+        let session = appDelegate.session
+        // url and request
+        let request = NSMutableURLRequest(url: UdacityURLFromParameters(parameters: parameters, withPathExtension: Constants.UdacityApiMethods.sessionID))
+        request.httpMethod = "DELETE"
+        
+        var xsrfCookie: HTTPCookie? = nil
+        let sharedCookieStorage = HTTPCookieStorage.shared
+        for cookie in sharedCookieStorage.cookies! {
+            if cookie.name == "XSRF-TOKEN" { xsrfCookie = cookie }
+        }
+        if let xsrfCookie = xsrfCookie {
+            request.setValue(xsrfCookie.value, forHTTPHeaderField: "X-XSRF-TOKEN")
+        }
+        
+        // making request
+        let task = session.dataTask(with: request as URLRequest) { (data, response, error) in
+            
+            func sendError(error: String) {
+                print(error)
+                let userInfo = [NSLocalizedDescriptionKey : error]
+                completionHandlerForDELETE(nil, NSError(domain: "taskForDELETEMethod", code: 1, userInfo: userInfo))
+            }
+            
+            // request error
+            guard (error == nil) else {
+                sendError(error: "Request error: \(error)")
+                return
+            }
+            
+            // response code error
+            guard let statusCode = (response as? HTTPURLResponse)?.statusCode, statusCode >= 200 && statusCode <= 299 else {
+                sendError(error: "Status code not 2xx")
+                return
+            }
+            
+            // no data returned error
+            guard let data = data else {
+                sendError(error: "No data was returned by the request!")
+                return
+            }
+            
+            //parse data
+            self.convertDataWithCompletionHandler(data: data, completionHandlerForConvertData: completionHandlerForDELETE)
+            
+        }
+        
+        //start request
+        task.resume()
+        
+    }
+
 
     // MARK: Url generator for Udacity API
     

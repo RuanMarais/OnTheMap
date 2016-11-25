@@ -16,13 +16,15 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     var alertNetwork: UIAlertController?
     var alertURL: UIAlertController?
     var alert: UIAlertController?
+    var alertLogout: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         alert = UIAlertController(title: Constants.AlertStrings.title, message: Constants.AlertStrings.body, preferredStyle: .alert)
         alertURL = UIAlertController(title: Constants.AlertUrl.failed, message: Constants.AlertUrl.message, preferredStyle: .alert)
-        alertNetwork = UIAlertController(title: Constants.AlertNetwork.failed, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
+        alertNetwork = UIAlertController(title: Constants.AlertNetwork.failedTable, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
+        alertLogout = UIAlertController(title: Constants.AlertNetwork.failedLogout, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
         let networkFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel, handler: nil)
         let UrlFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel, handler: nil)
         let replaceAction = UIAlertAction(title: Constants.AlertStrings.replace, style: .default){(parameter) in
@@ -31,11 +33,13 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         let noReplaceAction = UIAlertAction(title: Constants.AlertStrings.noReplace, style: .default){(parameter) in
             self.presentPinInputController(pinReplace: false)
         }
+        let logoutFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel, handler: nil)
 
         alertNetwork?.addAction(networkFail)
         alertURL?.addAction(UrlFail)
         alert?.addAction(replaceAction)
         alert?.addAction(noReplaceAction)
+        alert?.addAction(logoutFail)
 
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.studentLocations = self.appDelegate.studentLocationDataStructArray
@@ -50,6 +54,19 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
 
     @IBAction func refreshTable(_ sender: Any) {
         retrieveDataReloadTable()
+    }
+    
+    @IBAction func logout(_ sender: Any) {
+        
+        UdacityClient.sharedInstance().attemptLogout(){(success, error) in
+            performUIUpdatesOnMain {
+                if success {
+                    self.presentLoginController()
+                } else {
+                    self.present(self.alertLogout!, animated: true, completion: nil)
+                }
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -142,6 +159,9 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
         controller.replace = pinReplace
         self.present(controller, animated: true, completion: nil)
     }
-
-
+    
+    func presentLoginController() {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "login") as! LoginViewController
+        self.present(controller, animated: true, completion: nil)
+    }
 }

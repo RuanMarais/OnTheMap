@@ -61,7 +61,7 @@ struct Constants {
     }
     
     struct ParseApiQueryValues {
-        static let limitNumber = 1000
+        static let limitNumber = 100
         static let ascendingTime = "updatedAt"
     }
     
@@ -93,6 +93,10 @@ struct Constants {
     
     struct AlertNetwork {
         static let failed = "Could not retrieve pins"
+        static let failedPost = "Could not post pin"
+        static let failedTable = "Could not populate table"
+        static let failedGeocode = "Could not find that location"
+        static let failedLogout = "Could not logout"
         static let connection = "Please check your internet connection and try again"
         static let accept = "Accept"
     }

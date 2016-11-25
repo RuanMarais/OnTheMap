@@ -19,9 +19,17 @@ class NewPinInputViewController: UIViewController {
     var replace: Bool = false
     var keyboardOnScreen = false
     var appDelegate: AppDelegate!
+    var alert: UIAlertController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        alert = UIAlertController(title: Constants.AlertNetwork.failedGeocode, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
+        let networkFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel){(parameter) in
+            self.showMapButton.isEnabled = true
+        }
+        
+        alert?.addAction(networkFail)
         
         appDelegate = UIApplication.shared.delegate as! AppDelegate
         self.configureUI()
@@ -165,7 +173,7 @@ extension NewPinInputViewController {
             geocoder.geocodeAddressString(locationString) {(placemarks, error) in
             performUIUpdatesOnMain {
                 guard (error == nil) else {
-                    self.showMapButton.isEnabled = true
+                    self.present(self.alert!, animated: true, completion: nil)
                     return
                 }
                 
@@ -180,7 +188,7 @@ extension NewPinInputViewController {
                     self.presentPinMapController(pinReplace: self.replace)
                     
                 } else {
-                    self.showMapButton.isEnabled = true
+                    self.present(self.alert!, animated: true, completion: nil)
                 }
 
             }

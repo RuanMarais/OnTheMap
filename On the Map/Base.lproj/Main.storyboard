@@ -7,13 +7,14 @@
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Login View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LoginViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="login" id="BYZ-38-t0r" customClass="LoginViewController" customModule="On_the_Map" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -177,11 +178,18 @@
                                                 <action selector="postPin:" destination="PNe-bU-1dt" id="cFg-S9-EVK"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="ESv-wZ-HRL">
-                                            <connections>
-                                                <action selector="refreshTable:" destination="PNe-bU-1dt" id="f7e-WZ-nCC"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="ESv-wZ-HRL">
+                                                <connections>
+                                                    <action selector="refreshTable:" destination="PNe-bU-1dt" id="f7e-WZ-nCC"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem title="Logout" id="YVp-ka-G5O">
+                                                <connections>
+                                                    <action selector="logout:" destination="PNe-bU-1dt" id="GRL-pV-YWr"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>
@@ -401,11 +409,18 @@
                                                 <action selector="newPin:" destination="5NC-vg-VVe" id="nE0-vw-wWO"/>
                                             </connections>
                                         </barButtonItem>
-                                        <barButtonItem key="rightBarButtonItem" systemItem="refresh" id="0dt-cU-V74">
-                                            <connections>
-                                                <action selector="refreshMap:" destination="5NC-vg-VVe" id="vZI-On-iyi"/>
-                                            </connections>
-                                        </barButtonItem>
+                                        <rightBarButtonItems>
+                                            <barButtonItem systemItem="refresh" id="0dt-cU-V74">
+                                                <connections>
+                                                    <action selector="refreshMap:" destination="5NC-vg-VVe" id="vZI-On-iyi"/>
+                                                </connections>
+                                            </barButtonItem>
+                                            <barButtonItem title="Logout" id="syc-V8-jTV">
+                                                <connections>
+                                                    <action selector="logout:" destination="5NC-vg-VVe" id="Rby-UU-tsK"/>
+                                                </connections>
+                                            </barButtonItem>
+                                        </rightBarButtonItems>
                                     </navigationItem>
                                 </items>
                             </navigationBar>

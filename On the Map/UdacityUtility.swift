@@ -92,4 +92,28 @@ extension UdacityClient {
 
         }
     }
+    
+    func attemptLogout(completionHandlerForLogout: @escaping (_ success: Bool, _ error: NSError?) -> Void){
+        
+        taskForDELETEMethod() {(results, error) in
+            
+            guard (error == nil) else {
+                completionHandlerForLogout(false, error)
+                return
+            }
+            
+            guard let accountDictionary = results?[Constants.UdacityResponseKeys.session] as? [String: AnyObject] else {
+                completionHandlerForLogout(false, NSError(domain: "Udacity logout response parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Udacity user logout result"]))
+                return
+            }
+            
+            guard ((accountDictionary[Constants.UdacityResponseKeys.sessionID]) != nil) else {
+                completionHandlerForLogout(false, NSError(domain: "Udacity logout response parsing", code: 0, userInfo: [NSLocalizedDescriptionKey: "Could not parse Udacity user logout result"]))
+                return
+            }
+            
+            completionHandlerForLogout(true, nil)
+            
+        }
+    }
 }
