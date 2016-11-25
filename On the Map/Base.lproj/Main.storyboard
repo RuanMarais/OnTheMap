@@ -173,9 +173,9 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="On the Map" id="AXH-9w-uqS">
-                                        <barButtonItem key="leftBarButtonItem" image="Pin" id="1AM-j5-n5B">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="YVp-ka-G5O">
                                             <connections>
-                                                <action selector="postPin:" destination="PNe-bU-1dt" id="cFg-S9-EVK"/>
+                                                <action selector="logout:" destination="PNe-bU-1dt" id="GRL-pV-YWr"/>
                                             </connections>
                                         </barButtonItem>
                                         <rightBarButtonItems>
@@ -184,9 +184,9 @@
                                                     <action selector="refreshTable:" destination="PNe-bU-1dt" id="f7e-WZ-nCC"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Logout" id="YVp-ka-G5O">
+                                            <barButtonItem image="Pin" id="1AM-j5-n5B">
                                                 <connections>
-                                                    <action selector="logout:" destination="PNe-bU-1dt" id="GRL-pV-YWr"/>
+                                                    <action selector="postPin:" destination="PNe-bU-1dt" id="cFg-S9-EVK"/>
                                                 </connections>
                                             </barButtonItem>
                                         </rightBarButtonItems>
@@ -241,10 +241,13 @@
                                 </items>
                             </navigationBar>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="f8T-fh-0r8">
-                                <rect key="frame" x="16" y="263" width="343" height="140"/>
+                                <rect key="frame" x="16" y="248" width="343" height="170"/>
                                 <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="eL0-jE-Kat">
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="20"/>
+                                    </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Enter Your Location" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9er-gy-EuQ">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="30" width="343" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="CAe-2K-BL5"/>
                                         </constraints>
@@ -253,7 +256,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Your Location" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dec-sG-Tp8">
-                                        <rect key="frame" x="0.0" y="50" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="80" width="343" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="qXm-wA-Y0d"/>
                                         </constraints>
@@ -262,7 +265,7 @@
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BJn-D1-lhB" customClass="CustomButton" customModule="On_the_Map" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="100" width="343" height="40"/>
+                                        <rect key="frame" x="0.0" y="130" width="343" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="wPO-iU-tvc"/>
                                         </constraints>
@@ -286,6 +289,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activity" destination="eL0-jE-Kat" id="eIc-67-TJO"/>
                         <outlet property="navBar" destination="nIv-pb-SKM" id="nTG-Jf-zLg"/>
                         <outlet property="pinInputLabel" destination="9er-gy-EuQ" id="tOa-On-PHh"/>
                         <outlet property="pinInputTextfield" destination="dec-sG-Tp8" id="BcF-aX-Hoc"/>
@@ -404,9 +408,9 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                                 <items>
                                     <navigationItem title="On the Map" id="LX2-Ju-igb">
-                                        <barButtonItem key="leftBarButtonItem" image="Pin" id="ZaI-nM-tYf">
+                                        <barButtonItem key="leftBarButtonItem" title="Logout" id="syc-V8-jTV">
                                             <connections>
-                                                <action selector="newPin:" destination="5NC-vg-VVe" id="nE0-vw-wWO"/>
+                                                <action selector="logout:" destination="5NC-vg-VVe" id="Rby-UU-tsK"/>
                                             </connections>
                                         </barButtonItem>
                                         <rightBarButtonItems>
@@ -415,9 +419,9 @@
                                                     <action selector="refreshMap:" destination="5NC-vg-VVe" id="vZI-On-iyi"/>
                                                 </connections>
                                             </barButtonItem>
-                                            <barButtonItem title="Logout" id="syc-V8-jTV">
+                                            <barButtonItem image="Pin" id="ZaI-nM-tYf">
                                                 <connections>
-                                                    <action selector="logout:" destination="5NC-vg-VVe" id="Rby-UU-tsK"/>
+                                                    <action selector="newPin:" destination="5NC-vg-VVe" id="nE0-vw-wWO"/>
                                                 </connections>
                                             </barButtonItem>
                                         </rightBarButtonItems>

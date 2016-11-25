@@ -62,7 +62,7 @@ struct Constants {
     
     struct ParseApiQueryValues {
         static let limitNumber = 100
-        static let ascendingTime = "updatedAt"
+        static let ascendingTime = "-updatedAt"
     }
     
     struct AlertStrings {
@@ -98,6 +98,7 @@ struct Constants {
         static let failedGeocode = "Could not find that location"
         static let failedLogout = "Could not logout"
         static let connection = "Please check your internet connection and try again"
+        static let geocoderFail = "Please try another location"
         static let accept = "Accept"
     }
     

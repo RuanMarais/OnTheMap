@@ -38,7 +38,7 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         alert?.addAction(replaceAction)
         alert?.addAction(noReplaceAction)
         alertNetwork?.addAction(networkFail)
-        alert?.addAction(logoutFail)
+        alertLogout?.addAction(logoutFail)
         
         self.appDelegate = UIApplication.shared.delegate as! AppDelegate
         populateMap()
@@ -147,12 +147,6 @@ class MapViewController: UIViewController, MKMapViewDelegate {
         }
     }
     
-    func presentPinInputController(pinReplace: Bool) {
-        let controller = self.storyboard!.instantiateViewController(withIdentifier: "NewPinInput") as! NewPinInputViewController
-        controller.replace = pinReplace
-        self.present(controller, animated: true, completion: nil)
-    }
-    
     func populateMap() {
         
         ParseClient.sharedInstance().populateStudentLocationStructArray(limitResults: Constants.ParseApiQueryValues.limitNumber){(success, error) in
@@ -215,10 +209,17 @@ class MapViewController: UIViewController, MKMapViewDelegate {
                 }
             }
         }
-
+    }
+    
+    func presentPinInputController(pinReplace: Bool) {
+        let controller = self.storyboard!.instantiateViewController(withIdentifier: "NewPinInput") as! NewPinInputViewController
+        controller.replace = pinReplace
+        self.dismiss(animated: true, completion: nil)
+        self.present(controller, animated: true, completion: nil)
     }
     
     func presentLoginController() {
+        self.dismiss(animated: true, completion: nil)
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "login") as! LoginViewController
         self.present(controller, animated: true, completion: nil)
     }

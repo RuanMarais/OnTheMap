@@ -11,6 +11,7 @@ import MapKit
 
 class NewPinInputViewController: UIViewController {
    
+    @IBOutlet weak var activity: UIActivityIndicatorView!
     @IBOutlet weak var showMapButton: UIButton!
     @IBOutlet weak var pinInputLabel: UILabel!
     @IBOutlet weak var pinInputTextfield: UITextField!
@@ -24,9 +25,9 @@ class NewPinInputViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        alert = UIAlertController(title: Constants.AlertNetwork.failedGeocode, message: Constants.AlertNetwork.connection, preferredStyle: .alert)
+        alert = UIAlertController(title: Constants.AlertNetwork.failedGeocode, message: Constants.AlertNetwork.failedGeocode, preferredStyle: .alert)
         let networkFail = UIAlertAction(title: Constants.AlertNetwork.accept, style: .cancel){(parameter) in
-            self.showMapButton.isEnabled = true
+            self.setUIEnabled(enabled: true)
         }
         
         alert?.addAction(networkFail)
@@ -38,7 +39,7 @@ class NewPinInputViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        self.showMapButton.isEnabled = true
+        self.setUIEnabled(enabled: true)
     }
     
     @IBAction func cancelInputPin(_ sender: Any) {
@@ -47,13 +48,14 @@ class NewPinInputViewController: UIViewController {
     
     @IBAction func showPinOnMap(_ sender: Any) {
         
-        showMapButton.isEnabled = false
+        self.setUIEnabled(enabled: false)
+        showActivity()
         userDidTapView(sender: self)
         
         if (!pinInputTextfield.text!.isEmpty) {
             geoCodeDataAndSegue(locationString: pinInputTextfield.text!)
         } else {
-            showMapButton.isEnabled = true
+            self.setUIEnabled(enabled: true)
         }
     }
 }
@@ -157,6 +159,7 @@ extension NewPinInputViewController {
         configureTextField(textField: pinInputTextfield)
         pinInputLabel.textColor = UIColor.white
         navBar.barTintColor = Constants.UIValues.ColorLight
+        
     }
     
     func presentPinMapController(pinReplace: Bool) {
@@ -166,11 +169,29 @@ extension NewPinInputViewController {
         self.present(controller, animated: true, completion: nil)
     }
     
+    func setUIEnabled(enabled: Bool) {
+        pinInputTextfield.isEnabled = enabled
+        showMapButton.isEnabled = enabled
+        activity.stopAnimating()
+        activity.isHidden = enabled
+        
+        if enabled {
+            showMapButton.alpha = 1.0
+        } else {
+            showMapButton.alpha = 0.5
+        }
+    }
+    
+    func showActivity() {
+        self.activity.isHidden = false
+        self.activity.startAnimating()
+    }
+ 
     func geoCodeDataAndSegue (locationString: String) {
         
+        showActivity()
         let geocoder: CLGeocoder = CLGeocoder()
-        
-            geocoder.geocodeAddressString(locationString) {(placemarks, error) in
+        geocoder.geocodeAddressString(locationString) {(placemarks, error) in
             performUIUpdatesOnMain {
                 guard (error == nil) else {
                     self.present(self.alert!, animated: true, completion: nil)

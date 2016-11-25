@@ -161,6 +161,7 @@ class StudentLocationTableViewController: UIViewController, UITableViewDelegate,
     }
     
     func presentLoginController() {
+        self.dismiss(animated: true, completion: nil)
         let controller = self.storyboard!.instantiateViewController(withIdentifier: "login") as! LoginViewController
         self.present(controller, animated: true, completion: nil)
     }
